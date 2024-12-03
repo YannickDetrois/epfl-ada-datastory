@@ -1,0 +1,192 @@
+/* Custom font */
+@font-face {
+  font-family: 'Niramit Regular';
+  src: local('Niramit Regular'), 
+       local('Niramit'), 
+       url('niramit/Niramit-Regular.ttf') format('truetype'),
+}
+
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: 'Niramit Regular';
+}
+
+.container{
+  width: 85%;
+  margin: auto;
+  overflow: hidden;
+}
+
+/* Header */
+#main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  gap: 4px;
+}
+
+.nav-list a {
+  color: #333;
+  font-weight: bold;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+}
+
+.nav-list a:hover {
+  color: #007acc;
+}
+
+/* Project Title */
+#showcase{
+  display:flex;
+  justify-content: center;
+  background-image: url('../images/voyages_abstract.webp');
+  min-height: 400px;
+  text-align: center;
+}
+
+#showcase h1{
+  color: #444444;
+  font-size: 40px;
+  line-height: 1.2em;
+}
+
+.opaque-box{
+  margin-top: 30px;
+  background-color: rgba(255, 255, 255, 1);
+  color: #fff;
+  border-radius: 10px;
+}
+
+/* Introduction */
+.intro-container{
+  background-color: antiquewhite;
+}
+
+#introduction {
+  float: left;
+  width: 55%; 
+  background: #8199e8;
+  color: #000000;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  margin-right: 5%;
+}
+
+#research-questions {
+  float: right;
+  width: 40%;
+  background: #83e881;
+  color: #000000;
+  padding: 20px 40px;
+  border-radius: 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  box-sizing: border-box;
+}
+
+
+@media(max-width:600px){
+  #introduction{
+    width: 100%;
+    float: none;
+  }
+
+  #research-questions{
+    width: 100%;
+    float: none;
+  }
+}
+
+/* The Story */
+#story{
+  margin-top: 20px;
+}
+
+#story h2{
+  text-align: center;
+  font-size: 40px;
+}
+
+.gradient-text {
+  background: linear-gradient(to right, #3458d6, #34d634);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Logo */
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Footer */
+#main-footer{
+  background-color: antiquewhite;
+  color: #fff;
+  
+}
+
+.team {
+  display: flex;
+  gap: 20px; /* Spacing between team members */
+  width: 60%;
+  margin: auto;
+}
+
+.team-member {
+  text-align: center;
+  padding: 20px;
+  width: 180px; /* Fixed width for each member */
+}
+
+.first-name {
+  color: #83e881; 
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.last-name {
+  color: #8199e8; 
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.contact {
+  margin-top: 10px;
+}
+
+.contact a {
+  margin: 0 5px;
+  text-decoration: none;
+}
+
+.contact img {
+  width: 24px;
+  height: 24px;
+  vertical-align: middle;
+}

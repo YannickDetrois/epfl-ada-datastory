@@ -1,9 +1,26 @@
 /* Custom font */
 @font-face {
-  font-family: 'Niramit Regular';
-  src: local('Niramit Regular'), 
-       local('Niramit'), 
-       url('niramit/Niramit-Regular.ttf') format('truetype'),
+  font-family: 'LinLibReg';
+  src: local('LinLibReg'), 
+       url('linuxlibertine/LinLibertine_R.ttf') format('truetype'),
+}
+
+@font-face {
+  font-family: 'LinLibLight';
+  src: local('LinLibLight'), 
+       url('linuxlibertine/LinLibertine_aDRS.ttf') format('truetype'),
+}
+
+@font-face {
+  font-family: 'LinLibCap';
+  src: local('LinLibCap'), 
+       url('linuxlibertine/LinLibertine_aS.ttf') format('truetype'),
+}
+
+@font-face {
+  font-family: 'OpenSansReg';
+  src: local('OpenSansReg'), 
+       url('opensans/OpenSans-Regular.ttf') format('truetype'),
 }
 
 /* General Reset */
@@ -12,13 +29,16 @@
   padding: 0;
   text-decoration: none;
   box-sizing: border-box;
-  font-family: 'Niramit Regular';
 }
 
 .container{
   width: 85%;
   margin: auto;
   overflow: hidden;
+}
+
+.bg-container{
+  background-color: #fafaf9;
 }
 
 /* Header */
@@ -35,21 +55,30 @@
 }
 
 /* Navbar */
+.logo {
+  font-size: 2rem;
+  font-family: 'LinLibCap';
+  color: #333;
+}
+
 .navbar {
   display: flex;
+  flex-wrap: wrap; /* Allow the navbar items to wrap onto the next line */
 }
 
 .nav-list {
   display: flex;
   list-style: none;
   gap: 4px;
+  flex-wrap: wrap; /* Ensure the list items can wrap */
 }
 
 .nav-list a {
   color: #333;
-  font-weight: bold;
   padding: 5px 10px;
   transition: color 0.3s ease;
+  font-family: 'LinLibCap';
+  font-size: 16pt;
 }
 
 .nav-list a:hover {
@@ -57,54 +86,96 @@
 }
 
 /* Project Title */
-#showcase{
-  display:flex;
+#showcase {
+  display: flex;
   justify-content: center;
-  background-image: url('../images/voyages_abstract.webp');
-  min-height: 400px;
-  text-align: center;
+  width: 100%; /* Full width */
+  margin: 0; /* Remove extra margin */
+  position: relative;
 }
 
-#showcase h1{
-  color: #444444;
-  font-size: 40px;
-  line-height: 1.2em;
+#showcase img {
+  width: 100%; /* Makes the image take the full width */
+  height: auto; /* Maintains aspect ratio */
 }
 
-.opaque-box{
-  margin-top: 30px;
-  background-color: rgba(255, 255, 255, 1);
-  color: #fff;
-  border-radius: 10px;
+#showcase h1 {
+  /* font-size: calc(2rem + 1vw); Font size adapts to viewport width */
+  font-size: 3vw;
+  color: #d9d9d9;
+  font-family: 'LinLibCap';
+  font-weight: normal;
+}
+  
+#showcase p {
+  font-size: calc(0.5vw); /* Smaller adaptive font size */
+}
+
+.centered {
+  position: absolute;
+  top: 42%;
+  left: 53%;
+  transform: translate(-50%, -50%);
 }
 
 /* Introduction */
-.intro-container{
-  background-color: antiquewhite;
-}
-
 #introduction {
   float: left;
   width: 55%; 
-  background: #8199e8;
-  color: #000000;
-  padding: 20px;
-  border-radius: 10px;
+  color: #000;
+  padding-left: 130px;
+  padding-top: 160px;
   margin-bottom: 30px;
-  margin-top: 30px;
   margin-right: 5%;
+  height: 700px;
+  position: relative;
+  background-image: url('../images/blue.jpg'); 
+  background-position: top left;
+  background-repeat: no-repeat;
+  background-size: 500px 500px; /* Adjust size as needed */
+}
+
+#introduction h2{
+  font-size: 35px;
+  font-family: "LinLibCap";
+  font-weight: normal;
+  margin-bottom: 20px;
+}
+
+#introduction p{
+  font-family: "OpenSansReg";
+  text-align: justify;
+  font-size: 16px;
 }
 
 #research-questions {
   float: right;
   width: 40%;
-  background: #83e881;
-  color: #000000;
+  color: #000;
   padding: 20px 40px;
-  border-radius: 10px;
-  margin-top: 30px;
+  height: 700px;
   margin-bottom: 30px;
+  margin-top: 100px;
   box-sizing: border-box;
+  position: relative;
+  background-image: url('../images/green.jpg'); /* Replace with actual image path */
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: 500px 500px; /* Adjust size as needed */
+}
+
+#research-questions h2{
+  font-size: 35px;
+  font-family: "LinLibCap";
+  font-weight: normal;
+  margin-bottom: 20px;
+  margin-top: 150px;
+}
+
+#research-questions ol{
+  font-family: "OpenSansReg";
+  text-align: justify;
+  font-size: 16px;
 }
 
 
@@ -123,61 +194,116 @@
 /* The Story */
 #story{
   margin-top: 20px;
+  background-color: #fafaf9; 
+  font-family: "OpenSansReg";
+  text-align: justify;
+  font-size: 16px;
 }
 
 #story h2{
   text-align: center;
-  font-size: 40px;
+  font-size: 45px;
+  font-family: 'LinLibCap';
+  padding-bottom: 30px;
+  font-weight: normal;
 }
 
 .gradient-text {
-  background: linear-gradient(to right, #3458d6, #34d634);
+  /* background: linear-gradient(to right, #3458d6, #34d634); */
+  background: linear-gradient(to right, #28649C, #40E0D0);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-/* Logo */
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #333;
+/* Footer */
+#main-footer {
+  background-color: #fafaf9;
+  color: #fff;
+  height: 95px; /* Set the height of the footer */
+  position: relative; /* Ensure absolute positioning works within this container */
 }
 
-/* Footer */
-#main-footer{
-  background-color: antiquewhite;
-  color: #fff;
-  
+.left-image {
+  background-image: url('../images/blue_footer.jpg');
+  background-size: auto 100%; /* Keep the aspect ratio, scale the height to 100% */
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%; /* Match the height of the footer */
+  width: 250px; /* Keep the natural width */
+  position: absolute; /* Position it to the left */
+  top: 0;
+  left: 0; /* Align to the left side */
 }
+
+.right-image {
+  background-image: url('../images/green_footer.jpg');
+  background-size: auto 100%; /* Keep the aspect ratio, scale the height to 100% */
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%; 
+  width: 250px; 
+  position: absolute; /* Position it to the right */
+  top: 0;
+  right: 0; /* Align to the right side */
+}
+
+
 
 .team {
   display: flex;
-  gap: 20px; /* Spacing between team members */
-  width: 60%;
-  margin: auto;
+  gap: clamp(10px, 5vw, 30px); /* Dynamic gap between team members */
+  width: 100%; /* Ensures it uses the full width available */
+  max-width: 50%; /* Limits maximum width */
+  margin: 0 auto; /* Centers the team container */
+  justify-content: center; /* Distributes space evenly between members */
 }
 
 .team-member {
+  flex: 1 1 150px; /* Allows team members to resize but keeps a minimum width */
   text-align: center;
-  padding: 20px;
-  width: 180px; /* Fixed width for each member */
+  padding: 10px; /* Adjusted for better responsiveness */
+}
+
+@media (max-width: 1200px) {
+  .team {
+    gap: clamp(8px, 4vw, 25px); /* Adjusted gap for medium screens */
+  }
+}
+
+@media (max-width: 800px) {
+  .team {
+    gap: clamp(5px, 3vw, 20px); /* Further reduced gap for smaller screens */
+    max-width: 90%; /* Uses more of the available width */
+  }
+}
+
+@media (max-width: 600px) {
+  .team {
+    gap: clamp(5px, 2vw, 15px); /* Small gap for very small screens */
+    max-width: 100%; /* Uses full width on very small screens */
+    margin: 0 10px; /* Adds small margins to prevent content from touching edges */
+  }
 }
 
 .first-name {
-  color: #83e881; 
+  color: #40E0D0; 
   font-size: 18px;
-  font-weight: bold;
+  font-family: 'LinLibCap';
 }
 
 .last-name {
-  color: #8199e8; 
+  color: #28649C; 
   font-size: 18px;
-  font-weight: bold;
+  font-family: 'LinLibCap';
 }
 
-.contact {
+.team-member .contact {
   margin-top: 10px;
+  display: flex; /* Enables flexbox layout */
+  gap: 5px; /* Adds space between the images */
+  justify-content: center; /* Optional: Centers items horizontally */
+  align-items: center; /* Aligns items vertically */
 }
 
 .contact a {
@@ -185,8 +311,12 @@
   text-decoration: none;
 }
 
+.contact a img {
+  max-width: 24px; /* Ensures the images stay a manageable size */
+  height: auto; /* Maintains aspect ratio */
+}
+
 .contact img {
-  width: 24px;
-  height: 24px;
+  width: 20px;
   vertical-align: middle;
 }

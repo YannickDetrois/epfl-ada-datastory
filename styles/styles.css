@@ -111,11 +111,21 @@
   font-size: calc(0.5vw); /* Smaller adaptive font size */
 }
 
-.centered {
+.title {
   position: absolute;
   top: 42%;
   left: 53%;
   transform: translate(-50%, -50%);
+}
+
+.abstract {
+  position: absolute;
+  text-align: center;
+  top: 83%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'LinLibCap';
+  font-size: 40px;
 }
 
 /* Introduction */
@@ -124,15 +134,14 @@
   width: 55%; 
   color: #000;
   padding-left: 130px;
-  padding-top: 160px;
   margin-bottom: 30px;
   margin-right: 5%;
-  height: 700px;
+  height: 720px;
   position: relative;
-  background-image: url('../images/blue.jpg'); 
-  background-position: top left;
+  background-image: url('../images/green.jpg'); 
+  background-position: bottom left;
   background-repeat: no-repeat;
-  background-size: 500px 500px; /* Adjust size as needed */
+  background-size: 60vw; /* Adjust size as needed */
 }
 
 #introduction h2{
@@ -146,22 +155,24 @@
   font-family: "OpenSansReg";
   text-align: justify;
   font-size: 16px;
+  margin-right: 50px;
 }
 
 #research-questions {
   float: right;
   width: 40%;
   color: #000;
-  padding: 20px 40px;
+  padding: 0px 40px;
   height: 700px;
   margin-bottom: 30px;
-  margin-top: 100px;
+  margin-top: 0px;
+
   box-sizing: border-box;
   position: relative;
-  background-image: url('../images/green.jpg'); /* Replace with actual image path */
-  background-position: bottom right;
+  background-image: url('../images/blue.jpg'); /* Replace with actual image path */
+  background-position: top right;
   background-repeat: no-repeat;
-  background-size: 500px 500px; /* Adjust size as needed */
+  background-size: 45vw; /* Adjust size as needed */
 }
 
 #research-questions h2{
@@ -169,13 +180,14 @@
   font-family: "LinLibCap";
   font-weight: normal;
   margin-bottom: 20px;
-  margin-top: 150px;
+  margin-top: 300px;
 }
 
 #research-questions ol{
   font-family: "OpenSansReg";
   text-align: justify;
   font-size: 16px;
+  margin-right: 100px;
 }
 
 
@@ -225,7 +237,7 @@
 }
 
 .left-image {
-  background-image: url('../images/blue_footer.jpg');
+  background-image: url('../images/green_footer.jpg');
   background-size: auto 100%; /* Keep the aspect ratio, scale the height to 100% */
   background-position: center;
   background-repeat: no-repeat;
@@ -237,7 +249,7 @@
 }
 
 .right-image {
-  background-image: url('../images/green_footer.jpg');
+  background-image: url('../images/blue_footer.jpg');
   background-size: auto 100%; /* Keep the aspect ratio, scale the height to 100% */
   background-position: center;
   background-repeat: no-repeat;

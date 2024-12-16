@@ -32,7 +32,7 @@
 }
 
 .container{
-  width: 85%;
+  width: 70%;
   margin: auto;
   overflow: hidden;
   background-color: #fafaf9;
@@ -41,6 +41,11 @@
 .bg-container{
   background-color: #fafaf9;
 }
+
+section {
+  scroll-margin-top: 80px; 
+}
+
 
 /* Header */
 #main-header {
@@ -83,7 +88,7 @@
 }
 
 .nav-list a:hover {
-  color: #007acc;
+  color: #28649C;
 }
 
 /* Project Title */
@@ -132,7 +137,7 @@
 /* Introduction */
 .intro-container{
   display: flex;
-  min-height: 720px;
+  min-height: 750px;
   align-items: stretch;
   background-color: #fafaf9;
 }
@@ -143,7 +148,7 @@
   color: #000;
   padding-left: 10vw;
   margin-bottom: 30px;
-  margin-right: 5%;
+  margin-right: 5vw;
   position: relative;
   background-image: url('../images/green.jpg'); 
   background-position: bottom left;
@@ -162,7 +167,12 @@
   font-family: "OpenSansReg";
   text-align: justify;
   font-size: 16px;
-  margin-right: 50px;
+  padding-bottom: 16px;
+  /* text-indent: 2em */
+}
+
+#introduction a{
+  color: #000;
 }
 
 #research-questions {
@@ -171,7 +181,6 @@
   color: #000;
   padding-left: 40px;
   margin-bottom: 30px;
-  margin-top: 0px;
 
   box-sizing: border-box;
   position: relative;
@@ -209,7 +218,7 @@
 
 /* The Story */
 #story{
-  margin-top: 20px;
+  padding-top: 80px;
   background-color: #fafaf9; 
   font-family: "OpenSansReg";
   text-align: justify;
@@ -224,13 +233,47 @@
   font-weight: normal;
 }
 
+#story h3{
+  font-size: 35px;
+  font-family: 'LinLibCap';
+  padding-bottom: 15px;
+  font-weight: normal;
+}
+
+#story p{
+  font-family: "OpenSansReg";
+  text-align: justify;
+  font-size: 16px;
+  padding-bottom: 16px;
+  /* text-indent: 2em */
+}
+
 .gradient-text {
   /* background: linear-gradient(to right, #3458d6, #34d634); */
-  background: linear-gradient(to right, #28649C, #40E0D0);
+  background: linear-gradient(to right, #28649C, #1dc2b1);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
+
+/* Conclusion */
+#conclusion{
+  padding-top: 80px;
+  padding-bottom: 200px;
+  background-color: #fafaf9; 
+  font-family: "OpenSansReg";
+  text-align: justify;
+  font-size: 16px;
+}
+
+#conclusion h2{
+  text-align: center;
+  font-size: 45px;
+  font-family: 'LinLibCap';
+  padding-bottom: 30px;
+  font-weight: normal;
+}
+
 
 /* Footer */
 #main-footer {
@@ -306,7 +349,7 @@
 }
 
 .first-name {
-  color: #40E0D0; 
+  color: #1dc2b1; 
   font-size: 18px;
   font-family: 'LinLibCap';
 }

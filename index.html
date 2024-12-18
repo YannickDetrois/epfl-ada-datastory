@@ -87,61 +87,70 @@
             </p>
 
             <h3>
-                Markov
+                Markov Chain vs. User Transitions
             </h3>
 
             <p>
-                Explain KL and Markov
-                Suppose we have two 2D matrices: 
-                \( P \) representing transition probabilities for users, 
-                and \( Q \) representing transition probabilities for a Markov chain. 
-                Each entry \( P_{ij} \) and \( Q_{ij} \) corresponds to the transition probability 
-                from state \( i \) to state \( j \).
-            </p>
-            <p>
-                The KL divergence is computed element-wise as \( D_{KL}(P || Q)_{ij} = P_{ij} \log \frac{P_{ij}}{Q_{ij}} \) only for valid entries where 
-                \( P_{ij} > 0 \) and \( Q_{ij} > 0 \) and is set to \( 0 \) otherwise. 
-            </p>
-            <p>
-                Next, for each column \( j \), the mean KL divergence over all rows \( i \) is calculated as:
-            </p>
-            <p>
-                \[
-                \overline{D_{KL}}(j) = \frac{1}{N} \sum_{i=1}^{N} D_{KL}(\mathbf{P} || \mathbf{Q})_{ij}
-                \]
-            </p>
-            <p>
-                Here, \( N \) is the number of rows (states). The result is a vector 
-                \( \overline{D_{KL}} \), where each element corresponds to the mean divergence 
-                for a particular column.
+                There seems to be some inherent bias of the categories just by the structure of the Wikispeedia network. 
+                Indeed, it seems much more likely to end up in World Regions or Science just because the categories are much bigger and more links lead to it. 
+                Maybe there is a way of disentangling the user behaviour from the network structure? If we consider that users only click on links randomly (i.e. a random walk in the Wikispeedia Network), we can capture the effect of the network structure. 
+                Indeed, if taking a random walk always leads you to World Regions, then maybe the users do not actually choose to go there but the network structure just makes it very likely that they end there anyway.
             </p>
 
             <p>
-                Let's start with a simple example just to understand how we compare the user paths to random walks in the network. 
-                We call the user transitions matrix \(P\), the Markov chain transitions \(Q\) and the resulting element-wise KL divergence \(D_{KL}\)
-                <div style="text-align: center;">
-                    \( 
-                    P = \begin{bmatrix} 0.2 & 0.8 \\ 0.6 & 0.4 \end{bmatrix} \quad \text{and} \quad 
-                    Q = \begin{bmatrix} 0.1 & 0.9 \\ 0.5 & 0.5 \end{bmatrix} \quad \text{give} \quad 
-                    D_{KL} = \begin{bmatrix} 0.1386 & -0.0942 \\ 0.4159 & -0.2238 \end{bmatrix} 
-                    \)
-                </div>
-
-            </p>
-            <p>
-                We see that when users make a certain transition more than expected by the random walk, it results in a positive \(KL\) divergence.
-                Similarly, making a transition less than expected by the random walk results in a negative \(KL\) divergence, and having the same probability as the random walk results in \(0\) divergence.
-                Generally, if users transition to a certain article more than random, the column corresponding to that article will have a lot of positive values.
-                If we find columns where the sum of \(KL\) divergences is large, then users tend to choose these articles more than the randomness that may favour these articles in the first place!
+                To model this, <a href="https://en.wikipedia.org/wiki/Markov_chain"><b>Markov Chains</b></a> come in handy: we can model the transition probabilities from one article A to an article B just by counting the number of links to article B in article A, and dividing by the number of links there are on the page in total. 
+                While this does not eliminate all bias (for instance, links further up in the page may be clicked more), this Markov chain still gives valuable insight about the network structure.
             </p>
 
             <p>
-                In our example for instance, the random network transitions rather favour transitions to the second article, but despite this users transition more often to the first article.
-                The \(KL\) summed by columns gives \([0.5545, -0.3180]\), where the choices of the users to choose an article over the random transitions is clearly displayed.
+                To get an equivalent transition matrix for users, we can simply count the transitions users actually made at each step. 
+                To compare the two obtained probability distributions, we will use the Kullback–Leibler (\( KL \)) divergence, a type of statistical distance measuring how much a model probability distribution \( Q \) (the random probabilities) differ from a probability distribution \( P \) (our users' transitions). 
+                The KL-divergence for a single element is defined as
+                
+                \[ D_{KL}(P || Q)_{ij} = P_{ij} \log \frac{P_{ij}}{Q_{ij}} \] 
+                
+                for entries where \( P_{ij} > 0 \) and \( Q_{ij} > 0 \) and is set to \( 0 \) otherwise. 
+                Each entry \( P_{ij} \) and \( Q_{ij} \) corresponds to the transition probability from article \( i \) to article \( j \).
+                It is \( 0 \) when \( P_{ij} \) and \( Q_{ij} \) are exactly the same or when the user transition probability is 0. 
+                A higher value indicates a stronger divergence: if the divergence is high, users choose a certain transition <b>more than the random transitions in the network would suggest</b>. 
+                That is, the users actually choose this transition and it is not only due to the network structure.
+                To get an aggregated effect for a certain target article \( j \), we then simply take the mean divergences corresponding to the transition leading to this article (i.e. the mean of all divergences in article \( j \)'s column).
             </p>
 
             <iframe src="plots/categories.html" style="width: 100%; height: 600px; border: none;" title="Plotly Chart1"></iframe>
             <iframe src="plots/sankey.html" style="width: 100%; height: 600px; border: none;" title="Plotly Chart2"></iframe>
+        
+            <h3>
+                Semantic Detour with Voyages
+            </h3>
+
+            <p>
+                We can get an idea of how similar one article is to another by comparing the cosine similarity of the article name embeddings. 
+                While this is not a precise method (for individual paths, the similarity may or may not make intuitive sense), it seems that the aggregated similarity over all paths does give significant results. 
+                In the following we analyse the mean similarity between one article and the next in user paths for both Voyages and Other paths. 
+                For this, we use both BERT and BGEM3 embeddings, to validate our results with at least two different models. 
+            </p>
+
+            <p>
+                The similarities are computed for all paths and all steps along each path. 
+                We focus here on the first 10 steps of all paths and take the mean over each step in all paths. 
+                Because the paths have different lenghts, the mean of e.g. position \( L \) is taken over all paths that have at least \( L \) steps. 
+                Furthermore, we compute the interval as \( 1.96 \) times the standard error, which we compute in the same fashion as the mean for each path position. 
+                We also normalise the scale to \( [0, 1] \), as the similarity scores for the two models are in a different, somewhat arbitrary, range. 
+                To preserve linearity, we simply use min-max scaling for each type of embedding, setting the maximum mean similarity to 1 and the minimum to 0. 
+            </p>
+
+            <p>
+                There is a clear trend for both types of embeddings: in the first few clicks, the articles chosen have a low similarity to the previous one. 
+                This can be interpreted as leaving the original category, because article names in different categories are likely to be less similar. 
+                After this, the similarity for the next clicks stabilises, with relatively small fluctuations.
+            </p>
+            
+            <p>
+                There is also a statistically significant difference between Voyages and Other paths. 
+                Generally, both embeddings agree that the similarity along paths is generally lower for Voyages. 
+                This could indeed show that there is a stronger detour or zoom-out behaviour from users in Voyages, as the articles visited are on average less similar to one-another.
+            </p>
         </section>
     </div>
   </div>
@@ -179,10 +188,10 @@
             <div class="first-name">Yannick</div>
             <div class="last-name">Detrois</div>
             <div class="contact">
-            <a href="https://github.com/johndoe" target="_blank" title="GitHub">
+            <a href="https://github.com/YannickDetrois" target="_blank" title="GitHub">
                 <img src="images/github.png" alt="GitHub Logo">
             </a>
-            <a href="mailto:johndoe@example.com" title="Email">
+            <a href="mailto:yannick.detrois@outlook.de" title="Email">
                 <img src="images/envelope.png" alt="Email Logo">
             </a>
             </div>

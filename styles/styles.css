@@ -248,6 +248,14 @@ section {
   /* text-indent: 2em */
 }
 
+#story a{
+  color: #000;
+}
+
+#story u{
+  text-decoration: underline;
+}
+
 .gradient-text {
   /* background: linear-gradient(to right, #3458d6, #34d634); */
   background: linear-gradient(to right, #28649C, #1dc2b1);

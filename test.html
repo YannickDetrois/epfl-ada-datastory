@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minimalistic Floating Sidebar</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Floating sidebar styling */
+    .sidebar {
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        background-color: white;
+        color: black;
+        padding: 10px;
+        border-radius: 5px 0 0 5px;
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+        text-align: right;
+    }
+
+    /* Media query to hide the sidebar */
+    @media (max-width: 768px) {
+        .sidebar {
+            display: none;
+        }
+    }
+
+    .sidebar a {
+      display: block;
+      color: black;
+      text-decoration: none;
+      margin-bottom: 5px;
+      padding: 5px;
+      font-size: 14px;
+    }
+
+    .sidebar a.active {
+      color: #007BFF;
+      font-weight: bold;
+    }
+
+    .sidebar a:hover {
+      color: #0056b3;
+    }
+
+    /* Content sections */
+    section {
+      height: 100vh;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <a href="#section1" class="active" id="link1">Section 1</a>
+    <a href="#section2" id="link2">Section 2</a>
+    <a href="#section3" id="link3">Section 3</a>
+    <a href="#section4" id="link4">Section 4</a>
+  </div>
+
+  <div class="content">
+    <section id="section1">Section 1 Content</section>
+    <section id="section2">Section 2 Content</section>
+    <section id="section3">Section 3 Content</section>
+    <section id="section4">Section 4 Content</section>
+  </div>
+
+  <script>
+    // Highlight the active link as you scroll
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll(".sidebar a");
+
+    window.addEventListener("scroll", () => {
+      let current = "";
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        if (pageYOffset >= sectionTop - sectionHeight / 3) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href").includes(current)) {
+          link.classList.add("active");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

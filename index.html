@@ -24,6 +24,15 @@
     </nav>
   </header>
 
+  <div class="sidebar">
+    <a href="#section1" class="active" id="link1">Wikispeedia Voyages</a>
+    <a href="#section2" id="link2">Network Structure</a>
+    <a href="#section3" id="link3">Markov Chains</a>
+    <a href="#section4" id="link4">Page Structure</a>
+    <a href="#section4" id="link5">User Comfort</a>
+    <a href="#section4" id="link6">Semantic Detour</a>
+  </div>
+
   <section id="showcase">
 
     <img src="./images/title.jpg" alt="Title Image">
@@ -59,7 +68,7 @@
         <h2>
             Research Questions
         </h2>
-        <ol type="1">
+        <ol>
             <li>Does the Wikispeedia article network structure intrinsically favour Wikispeedia Voyages?</li>
             <li>Are users more comfortable, fast or efficient with world regions than other topics?</li>
             <li>How does the strategy compare with the algorithmic shortest paths?</li>
@@ -75,16 +84,28 @@
             </h2>
 
             <h3>
-                Paragraph Title
+                Whare even are Wikispeedia Voyages?
             </h3>
 
             <p>
-                Paragraph 1: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero iste atque laboriosam ipsa natus, et cumque blanditiis quo maxime optio, corrupti, aliquid ab iusto omnis molestias nulla alias modi nemo?
+                Let's address the elephant in the room: what exactly are Wikispeedia Voyages? Simply put, they are paths that navigate through articles tagged with the "World Regions" category. 
+                But that raises another question: how do we identify all the articles that qualify as "World Regions"?
+                We found out that by combining all the articles with main category "Countries" and a subset of "Geography" subcategories, we obtain an exhaustive set of articles that refer to places, cities, regions or countries.
+                The following Sankey flow chart shows how the initial categories are regrouped into "World Regions" and "Others" categories.
+                The second layer of the chart then shows how many of the paths starting and finishing in Others evolve to become Wikispeedia Voyages by passing at any time in the path through World Regions.
             </p>
 
+            <!-- SANKEY -->
+
             <p>
-                Paragraph 2: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero iste atque laboriosam ipsa natus, et cumque blanditiis quo maxime optio, corrupti, aliquid ab iusto omnis molestias nulla alias modi nemo?
+                About a third of all the paths are Voyages. 
             </p>
+
+            <!--  -->
+
+            <h3>
+                Wikispeedia Network Structure
+            </h3>
 
             <h3>
                 Markov Chain vs. User Transitions
@@ -119,6 +140,14 @@
 
             <iframe src="plots/categories.html" style="width: 100%; height: 600px; border: none;" title="Plotly Chart1"></iframe>
             <iframe src="plots/sankey.html" style="width: 100%; height: 600px; border: none;" title="Plotly Chart2"></iframe>
+
+            <h3>
+                Impact of the Page Structure
+            </h3>
+
+            <h3>
+                Are Users More Comfortable With Wikispeedia Voyages?
+            </h3>
         
             <h3>
                 Semantic Detour with Voyages
@@ -145,7 +174,7 @@
                 This can be interpreted as leaving the original category, because article names in different categories are likely to be less similar. 
                 After this, the similarity for the next clicks stabilises, with relatively small fluctuations.
             </p>
-            
+
             <p>
                 There is also a statistically significant difference between Voyages and Other paths. 
                 Generally, both embeddings agree that the similarity along paths is generally lower for Voyages. 
@@ -161,20 +190,16 @@
         <h2>
             Conclusion
         </h2>
-
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum asperiores quaerat repudiandae, quod eaque totam quidem deserunt exercitationem vel ullam sequi id rerum obcaecati cum cupiditate sapiente vitae voluptatem harum. 
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum asperiores quaerat repudiandae, quod eaque totam quidem deserunt exercitationem vel ullam sequi id rerum obcaecati cum cupiditate sapiente vitae voluptatem harum. 
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum asperiores quaerat repudiandae, quod eaque totam quidem deserunt exercitationem vel ullam sequi id rerum obcaecati cum cupiditate sapiente vitae voluptatem harum. 
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum asperiores quaerat repudiandae, quod eaque totam quidem deserunt exercitationem vel ullam sequi id rerum obcaecati cum cupiditate sapiente vitae voluptatem harum. 
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum asperiores quaerat repudiandae, quod eaque totam quidem deserunt exercitationem vel ullam sequi id rerum obcaecati cum cupiditate sapiente vitae voluptatem harum. 
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum asperiores quaerat repudiandae, quod eaque totam quidem deserunt exercitationem vel ullam sequi id rerum obcaecati cum cupiditate sapiente vitae voluptatem harum. 
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum asperiores quaerat repudiandae, quod eaque totam quidem deserunt exercitationem vel ullam sequi id rerum obcaecati cum cupiditate sapiente vitae voluptatem harum. 
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum asperiores quaerat repudiandae, quod eaque totam quidem deserunt exercitationem vel ullam sequi id rerum obcaecati cum cupiditate sapiente vitae voluptatem harum. 
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum asperiores quaerat repudiandae, quod eaque totam quidem deserunt exercitationem vel ullam sequi id rerum obcaecati cum cupiditate sapiente vitae voluptatem harum. 
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum asperiores quaerat repudiandae, quod eaque totam quidem deserunt exercitationem vel ullam sequi id rerum obcaecati cum cupiditate sapiente vitae voluptatem harum. 
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum asperiores quaerat repudiandae, quod eaque totam quidem deserunt exercitationem vel ullam sequi id rerum obcaecati cum cupiditate sapiente vitae voluptatem harum. 
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum asperiores quaerat repudiandae, quod eaque totam quidem deserunt exercitationem vel ullam sequi id rerum obcaecati cum cupiditate sapiente vitae voluptatem harum. 
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum asperiores quaerat repudiandae, quod eaque totam quidem deserunt exercitationem vel ullam sequi id rerum obcaecati cum cupiditate sapiente vitae voluptatem harum. 
+        
+        <ol>
+            <li>World Regions are overrepresented</li>
+            <li>Users still do voyages more than they would randomly</li>
+            <li>Users manage better with Voyages</li>
+            <li>Users should do more voyages!!</li>
+            <li>Voyages steps are overall less similar</li>
+            <li>Something about the impact of page structure</li>
+            <li>Only a few articles actually seem to contribute</li>
+        </ol>
 
         </section>
     </div>
@@ -251,6 +276,30 @@
     </div>
     <div class="right-image"></div>
   </footer>
+
+  <script>
+    // Highlight the active link as you scroll
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll(".sidebar a");
+
+    window.addEventListener("scroll", () => {
+      let current = "";
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        if (pageYOffset >= sectionTop - sectionHeight / 3) {
+          current = section.getAttribute("id");
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href").includes(current)) {
+          link.classList.add("active");
+        }
+      });
+    });
+  </script>
   
 </body>
 </html>

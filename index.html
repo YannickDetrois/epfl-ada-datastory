@@ -210,13 +210,19 @@
                 </h3>
             
                 <p>
-                    How do Voyages Compare with Algorithmic Optimal Paths?
-                </p>
-
-                <!-- DIFFICULTY PLOT -->
-
+                    Now that we know that users pass through World Regions more often than they would during random exploration, we can evaluate whether this is an effective strategy or if there might be a better approach. One way to address this question is to compare user paths with optimal paths.
                 <p>
-                    SHORTEST PATH CONCLUSION
+                    Let's define the optimal path as the shortest path that can be taken. This assumption aligns with the game’s goal: to reach the target while minimizing the number of clicks. To analyze the effectiveness of the World Regions strategy, we can examine whether users’ choice of categories aligns with the categories in the optimal paths. 
+                    This involves computing the optimal path by constructing a directed graph where edges represent connections between articles. Using this graph, we calculate all the shortest paths for each source-target pair present in users’ games. Interestingly, some pairs have a surprisingly large number of possible optimal paths, up to 599!
+                <p>
+                    The figure here shows the normalized percentage of times each category is visited at each step. For simplicity, only the first 10 steps of user paths are displayed, while optimal paths are shown in full. There is a steep increase for certain categories at the 5th or 6th step, reflecting the fact that fewer paths of this length exist, thus representing fewer categories.
+                <p>
+                    <!-- DIFFICULTY PLOT -->
+                    PLOT
+                <p>   
+                    We clearly see that in the early steps, World Regions appears most frequently, with its presence steadily decreasing over subsequent steps, aligning with other categories. This trend holds for both user and optimal paths, suggesting that using World Regions early in the path is generally a good strategy.
+                <p>
+                    The plot on the right compares the percentage differences, averaged across all steps. Surprisingly, users pass through World Regions less frequently than optimal paths suggest. This finding is surprising, as we intuitively expected humans to rely more on Wikispeedia Voyages than necessary. However, the opposite is true. Users might benefit from using this category more, maybe because, as shown earlier, it is highly interconnected with other categories.
                 </p>
             </section>
             

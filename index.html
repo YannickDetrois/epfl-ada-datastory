@@ -26,12 +26,11 @@
 
   <div class="sidebar">
     <a href="#voyages" class="active" id="link1">Wikispeedia Voyages</a>
-    <a href="#network" id="link2">Network Structure</a>
-    <a href="#markov" id="link3">Markov Chains</a>
-    <a href="#structure" id="link4">Page Structure</a>
-    <a href="#comfort" id="link5">User Comfort</a>
-    <a href="#shortest" id="link6">Shortest Paths</a>
-    <a href="#semantic" id="link7">Semantic Detour</a>
+    <a href="#markov" id="link2">Markov Chains</a>
+    <a href="#structure" id="link3">Page Structure</a>
+    <a href="#comfort" id="link4">User Comfort</a>
+    <a href="#shortest" id="link5">Shortest Paths</a>
+    <a href="#semantic" id="link6">Semantic Detour</a>
   </div>
 
   <section id="showcase">
@@ -86,36 +85,44 @@
 
             <section id="voyages">
                 <h3>
-                    Whare even are Wikispeedia Voyages?
+                    What even are Wikispeedia Voyages?
                 </h3>
     
                 <p>
                     Let's address the elephant in the room: what exactly are Wikispeedia Voyages? Simply put, they are paths that navigate through articles tagged with the "World Regions" category. 
-                    But that raises another question: how do we identify all the articles that qualify as "World Regions"?
-                    We found out that by combining all the articles with main category "Countries" and a subset of "Geography" subcategories, we obtain an exhaustive set of articles that refer to places, cities, regions or countries.
-                    The following Sankey flow chart shows how the initial categories are regrouped into "World Regions" and "Others" categories.
-                    The second layer of the chart then shows how many of the paths starting and finishing in Others evolve to become Wikispeedia Voyages by passing at any time in the path through World Regions.
+                    But that raises another question: how do we identify all the articles that qualify as "World Regions"? 
+                    The dataset attributes a category to each article in the network - we found out that by combining all the articles with main category "Countries" and a subset of "Geography" subcategories, we obtain an exhaustive set of articles that refer to places, cities, regions or countries.
+                    The Treemap below shows what articles the new category "World Regions" comprises, as well as its size and sub-structure comparing to all the other categories.
+                </p>
+
+                <!-- TREEMAP -->
+                <iframe src="plots/categories.html" style="width: 100%; height: 600px; border: none;" title="Plotly Chart1"></iframe>
+                
+                <p>
+                    Now that we have a static information about the distribution of categories in the network, we need to integrate the dynamic information about user paths.
+                    Even though World Regions represent about a fifth of all the articles in the network, their distribution in the start and goal articles in user paths also represents a possible bias in the analysis.
+                    The following Sankey flow chart shows how the initial categories are regrouped into "World Regions" and "Others" categories, and then to which proportions these categories are represented in user paths start nodes.
+                    The subsequent layers represent how many of the paths starting and finishing in "Others" evolve to become Wikispeedia Voyages by passing at any time in the path through World Regions.
                 </p>
 
                 <!-- SANKEY -->
-                <iframe src="plots/categories.html" style="width: 100%; height: 600px; border: none;" title="Plotly Chart1"></iframe>
                 <iframe src="plots/sankey.html" style="width: 100%; height: 600px; border: none;" title="Plotly Chart2"></iframe>
 
                 <p>
-                    About a third of all the paths are Voyages. 
+                    About a third of all the paths are Voyages, which is a sizable portion of the user paths.
                 </p>
-            </section>
-            
-            <section id="network">
-                <h3>
-                    Wikispeedia Network Structure
-                </h3>
             </section>
 
             <section id="markov">
                 <h3>
-                    Markov Chain vs. User Transitions
+                    Mr. Markov vs. Users
                 </h3>
+
+                <p>
+                    Networks
+                </p>
+
+                <!-- NETWORKS -->
 
                 <p>
                     There seems to be some inherent bias of the categories just by the structure of the Wikispeedia network. 
@@ -124,9 +131,19 @@
                     Indeed, if taking a random walk always leads you to World Regions, then maybe the users do not actually choose to go there but the network structure just makes it very likely that they end there anyway.
                 </p>
 
-                <p>
+                <p> Andrey Andreyevich Markov!!
                     To model this, <a href="https://en.wikipedia.org/wiki/Markov_chain"><b>Markov Chains</b></a> come in handy: we can model the transition probabilities from one article A to an article B just by counting the number of links to article B in article A, and dividing by the number of links there are on the page in total. 
                     While this does not eliminate all bias (for instance, links further up in the page may be clicked more), this Markov chain still gives valuable insight about the network structure.
+                </p>
+
+                <p>
+                    First, let's see whether the obtained transition matrix makes sense with what we have observed previously. 
+                    Let's have a look at which articles we seem to converge naturally to when taking a random walk in the Wikispeedia network.
+
+                    The transition matrix's \( P \) left eigenvector with eigenvalue \( 1 \) (i.e. \( x \) such that \( xP=x \)) whose elements sum to \( 1 \) is called the steady-state of the system. 
+                    After $\infty$ iterations, starting from whatever article, the probability distribution of the end article is given by $x$. 
+                    The steady-state proves that the article to most likely randomly arrive at in the network is United States (with \( 1.35\% \) probability). 
+                    , followed mainly by other countries. It looks like countries are naturally favoured by the network structure. This is interesting as it shows that there is definitely a bias towards World Regions (particularly large countries) in Wikispeedia articles: they have more links and are more interconnected than other articles. This is a first hint that World Regions are intertwined with the human mind, as humans wrote the articles in questions and made them particularly rich and link-dense.
                 </p>
 
                 <p>
@@ -143,18 +160,48 @@
                     That is, the users actually choose this transition and it is not only due to the network structure.
                     To get an aggregated effect for a certain target article \( j \), we then simply take the mean divergences corresponding to the transition leading to this article (i.e. the mean of all divergences in article \( j \)'s column).
                 </p>
+
+                <!-- MARKOV -->
+
+                <p>   
+                    It seems that even when comparing the random transitions (that already favour World Region articles) with the user transitions, there is a consistent bias towards World Region articles. This shows that users use certain articles more than the already favourable random transitions would suggest. This could have multiple reasons: it could be because users are more comfortable with the articles' topic, but it could also be as part of the users' strategy, if users noticed that these articles had promising connectivity.
+                    We can take two main conclusions from these figures:
+                        1. In the first few steps, World Region articles seem to be chosen by users much more than random. The Divergence Value is statistically significantly higher for World Regions than it is for all the other categories.
+                        2. Certain articles in the World Region category have a much higher impact than others. Looking at the scales of mean divergence ($10^{-1}$ for United States vs $10^{-4}$ for aggregated World Regions), it seems that a few articles contribute much more than others to World Regions being so popular.
+                </p>
             </section>
                 
             <section id="structure">
                 <h3>
                     Impact of the Page Structure
                 </h3>
+
+                <p>
+                    To relax the assumption made for Markov networks that every link in an article is equally likely to be clicked, we can have a look at how link position influences whether links are clicked or not. If we find for instance that only the first few links are generally clicked, the uniform link choice assumption may be false.
+                    It is also interesting to look if users are particularly attracted by special elements in the articles such as the abstract, infoboxes or tables.
+                </p>
+
+                <!--STRUCTURE PLOT -->
+
+                <p>
+                    ANALYSE STRUCTURE PLOT
+                </p>
             </section>
 
             <section id="comfort">
                 <h3>
                     Are Users More Comfortable With Wikispeedia Voyages?
                 </h3>
+
+                <p> 
+                    INTRODUCE DIFFICULTY
+                </p>
+
+                <!-- DIFFICULTY PLOT -->
+
+                <p>
+                    ANALYSE DIFFICULTY PLOT
+                </p>
             </section>
             
             <section id="shortest">
@@ -164,6 +211,12 @@
             
                 <p>
                     How do Voyages Compare with Algorithmic Optimal Paths?
+                </p>
+
+                <!-- DIFFICULTY PLOT -->
+
+                <p>
+                    SHORTEST PATH CONCLUSION
                 </p>
             </section>
             
@@ -187,6 +240,8 @@
                     We also normalise the scale to \( [0, 1] \), as the similarity scores for the two models are in a different, somewhat arbitrary, range. 
                     To preserve linearity, we simply use min-max scaling for each type of embedding, setting the maximum mean similarity to 1 and the minimum to 0. 
                 </p>
+
+                <!-- SIMILARITY PLOT -->
 
                 <p>
                     There is a clear trend for both types of embeddings: in the first few clicks, the articles chosen have a low similarity to the previous one. 
@@ -228,7 +283,7 @@
   <footer id="main-footer">
     <div class="left-image"></div>
     <div class="team">
-        <!-- Team Member 1 -->
+        <!-- YaYa -->
         <div class="team-member">
             <div class="first-name">Yannick</div>
             <div class="last-name">Detrois</div>
@@ -241,7 +296,7 @@
             </a>
             </div>
         </div>
-        <!-- Team Member 2 -->
+        <!-- Mi-Ca -->
         <div class="team-member">
             <div class="first-name">Camille</div>
             <div class="last-name">Challier</div>
@@ -254,7 +309,7 @@
             </a>
             </div>
         </div>
-        <!-- Team Member 3 -->
+        <!-- Frifrou -->
         <div class="team-member">
             <div class="first-name">David</div>
             <div class="last-name">Friou</div>
@@ -267,7 +322,7 @@
             </a>
             </div>
         </div>
-        <!-- Team Member 4 -->
+        <!-- Ractine -->
         <div class="team-member">
             <div class="first-name">Marine</div>
             <div class="last-name">Ract</div>
@@ -280,7 +335,7 @@
             </a>
             </div>
         </div>
-        <!-- Team Member 5 -->
+        <!-- Scogliose -->
         <div class="team-member">
             <div class="first-name">Marianne</div>
             <div class="last-name">Scoglio</div>

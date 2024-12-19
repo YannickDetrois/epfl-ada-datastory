@@ -471,3 +471,37 @@ section {
   width: 20px;
   vertical-align: middle;
 }
+
+.plot-container-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.plot-container-right {
+  flex: 3; 
+  margin-right: 2%; 
+  margin-bottom: 50px;
+  padding-bottom: 50px;
+  height: 500px;
+  order : 1
+}
+
+.plot-container-left {
+  flex: 3; 
+  margin-right: 2%; 
+  margin-bottom: 50px;
+  padding-bottom: 50px;
+  height: 500px;
+  order : 2
+}
+
+.text-container-right {
+  flex: 1; 
+  order : 1
+}
+
+.text-container-left {
+  flex: 1; 
+  order : 2
+}

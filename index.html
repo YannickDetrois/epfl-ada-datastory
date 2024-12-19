@@ -182,13 +182,39 @@
                 <p>
                     To relax the assumption made for Markov networks that every link in an article is equally likely to be clicked, we can have a look at how link position influences whether links are clicked or not. If we find for instance that only the first few links are generally clicked, the uniform link choice assumption may be false.
                     It is also interesting to look if users are particularly attracted by special elements in the articles such as the abstract, infoboxes or tables.
-                </p>
-
-                <!--STRUCTURE PLOT -->
-
                 <p>
-                    ANALYSE STRUCTURE PLOT
-                </p>
+                    The first step is to identify the position of links to a particular category within the article. 
+                    "Position" refers to the rank of a link, such as whether it is the first, last, or somewhere in between.
+                    By computing the distribution of these category-specific links across all articles, we can determine if there is a pattern: Do links in certain categories tend to appear more frequently at the beginning, middle, or end of the page, or is the distribution random? Understanding this distribution will help us assess whether users' link choices are influenced by the position of the links on the page.
+
+                    <p>
+                    The next step is to analyze where users are clicking on an article page. We examine the positions of the links that were clicked. If users tend to click on links positioned earlier in the article more frequently than those at the end, this would suggest that link position impacts user behavior.
+                    To perform this analysis, we calculate the typical position of the clicked link for each article in each user path. If a link to the target article appears multiple times, we use the average position of these links as a representative value.
+  
+                    <div class="plot-container-wrapper">
+                        <div class="plot-container-right">
+                            <iframe src="plots/boxplot_position.html" style="width: 100%; height: 600px; border: none;" title="Plotly Chart2"></iframe>
+                            <p>
+                        </div>
+                        <div class="text-container-left">
+                            <p>
+                            Our analysis reveals that the median and mean positions of category-specific links are both around 0.5. This suggests that the links are fairly evenly distributed across the page. However, we also observe that, while links are distributed randomly, users tend to click on the first links more often than those later in the article (with a median click position of 0.43). This indicates that the position of links influences user behavior, as users are more likely to engage with links that appear earlier on the page.
+                        </div>
+                    </div>
+                    <div class="plot-container-wrapper">
+                        <div class="plot-container-left">
+                            <iframe src="plots/donut_sections.html" style="width: 100%; height: 600px; border: none;" title="Plotly Chart2"></iframe>
+                        </div>
+                        <div class="text-container-right">
+                            <p>
+                            Now, let's investigate in which section of the page the links are located and on which section users click the most. 
+                            As before, we identify the section of the clicked links for each article in each path. If the target article's link appears multiple times in different sections, we consider all occurrences and calculate the mean position as the representative value. We then compare this distribution with the section distribution of all links across all articles and paths.
+                            <p>
+                            We see here that users click significantly more on links in the Abstract section (30% of clicks, compared to only 8% of links). They also engage with the Info-boxes (12% of clicks, though they represent only 5% of links) !
+                        </div>
+                    </div>
+                    </p>
+
             </section>
 
             <section id="comfort">

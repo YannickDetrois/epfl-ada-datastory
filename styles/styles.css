@@ -264,7 +264,7 @@ section {
 }
 
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .intro-container {
     flex-direction: column; /* Stacks the asides vertically */
   }
@@ -479,7 +479,7 @@ section {
 }
 
 .plot-container-right {
-  flex: 3; 
+  flex: 1.5; 
   margin-right: 2%; 
   margin-bottom: 50px;
   padding-bottom: 50px;
@@ -488,7 +488,7 @@ section {
 }
 
 .plot-container-left {
-  flex: 3; 
+  flex: 1.5; 
   margin-right: 2%; 
   margin-bottom: 50px;
   padding-bottom: 50px;
@@ -504,4 +504,16 @@ section {
 .text-container-left {
   flex: 1; 
   order : 2
+}
+
+@media (max-width: 1000px) {
+  .plot-container-wrapper {
+    flex-direction: column;
+    align-items: center; 
+  }
+
+  .plot-container-right, .plot-container-left, .text-container-right, .text-container-left {
+    width: 100%;
+    /* padding-top: 75%; */
+  }
 }

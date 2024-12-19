@@ -91,7 +91,7 @@ section {
   color: #28649C;
 }
 
-/* Floating sidebar styling */
+/* Floating sidebar */
 .sidebar {
   position: fixed;
   top: 50%;
@@ -119,15 +119,19 @@ section {
   margin-bottom: 5px;
   padding: 5px;
   font-size: 14px;
+  font-family: 'OpenSansReg';
+}
+
+.sidebar section {
+  scroll-margin-top: 80px; /* Accounts for scroll behaviour for heading */
 }
 
 .sidebar a.active {
-  color: #007BFF;
   font-weight: bold;
 }
 
 .sidebar a:hover {
-  color: #0056b3;
+  color: #28649C;
 }
 
 /* Project Title */

@@ -25,12 +25,13 @@
   </header>
 
   <div class="sidebar">
-    <a href="#section1" class="active" id="link1">Wikispeedia Voyages</a>
-    <a href="#section2" id="link2">Network Structure</a>
-    <a href="#section3" id="link3">Markov Chains</a>
-    <a href="#section4" id="link4">Page Structure</a>
-    <a href="#section4" id="link5">User Comfort</a>
-    <a href="#section4" id="link6">Semantic Detour</a>
+    <a href="#voyages" class="active" id="link1">Wikispeedia Voyages</a>
+    <a href="#network" id="link2">Network Structure</a>
+    <a href="#markov" id="link3">Markov Chains</a>
+    <a href="#structure" id="link4">Page Structure</a>
+    <a href="#comfort" id="link5">User Comfort</a>
+    <a href="#shortest" id="link6">Shortest Paths</a>
+    <a href="#semantic" id="link7">Semantic Detour</a>
   </div>
 
   <section id="showcase">
@@ -83,103 +84,122 @@
                 <span class="gradient-text">The Story</span>
             </h2>
 
-            <h3>
-                Whare even are Wikispeedia Voyages?
-            </h3>
+            <section id="voyages">
+                <h3>
+                    Whare even are Wikispeedia Voyages?
+                </h3>
+    
+                <p>
+                    Let's address the elephant in the room: what exactly are Wikispeedia Voyages? Simply put, they are paths that navigate through articles tagged with the "World Regions" category. 
+                    But that raises another question: how do we identify all the articles that qualify as "World Regions"?
+                    We found out that by combining all the articles with main category "Countries" and a subset of "Geography" subcategories, we obtain an exhaustive set of articles that refer to places, cities, regions or countries.
+                    The following Sankey flow chart shows how the initial categories are regrouped into "World Regions" and "Others" categories.
+                    The second layer of the chart then shows how many of the paths starting and finishing in Others evolve to become Wikispeedia Voyages by passing at any time in the path through World Regions.
+                </p>
 
-            <p>
-                Let's address the elephant in the room: what exactly are Wikispeedia Voyages? Simply put, they are paths that navigate through articles tagged with the "World Regions" category. 
-                But that raises another question: how do we identify all the articles that qualify as "World Regions"?
-                We found out that by combining all the articles with main category "Countries" and a subset of "Geography" subcategories, we obtain an exhaustive set of articles that refer to places, cities, regions or countries.
-                The following Sankey flow chart shows how the initial categories are regrouped into "World Regions" and "Others" categories.
-                The second layer of the chart then shows how many of the paths starting and finishing in Others evolve to become Wikispeedia Voyages by passing at any time in the path through World Regions.
-            </p>
+                <!-- SANKEY -->
+                <iframe src="plots/categories.html" style="width: 100%; height: 600px; border: none;" title="Plotly Chart1"></iframe>
+                <iframe src="plots/sankey.html" style="width: 100%; height: 600px; border: none;" title="Plotly Chart2"></iframe>
 
-            <!-- SANKEY -->
+                <p>
+                    About a third of all the paths are Voyages. 
+                </p>
+            </section>
+            
+            <section id="network">
+                <h3>
+                    Wikispeedia Network Structure
+                </h3>
+            </section>
 
-            <p>
-                About a third of all the paths are Voyages. 
-            </p>
+            <section id="markov">
+                <h3>
+                    Markov Chain vs. User Transitions
+                </h3>
 
-            <!--  -->
+                <p>
+                    There seems to be some inherent bias of the categories just by the structure of the Wikispeedia network. 
+                    Indeed, it seems much more likely to end up in World Regions or Science just because the categories are much bigger and more links lead to it. 
+                    Maybe there is a way of disentangling the user behaviour from the network structure? If we consider that users only click on links randomly (i.e. a random walk in the Wikispeedia Network), we can capture the effect of the network structure. 
+                    Indeed, if taking a random walk always leads you to World Regions, then maybe the users do not actually choose to go there but the network structure just makes it very likely that they end there anyway.
+                </p>
 
-            <h3>
-                Wikispeedia Network Structure
-            </h3>
+                <p>
+                    To model this, <a href="https://en.wikipedia.org/wiki/Markov_chain"><b>Markov Chains</b></a> come in handy: we can model the transition probabilities from one article A to an article B just by counting the number of links to article B in article A, and dividing by the number of links there are on the page in total. 
+                    While this does not eliminate all bias (for instance, links further up in the page may be clicked more), this Markov chain still gives valuable insight about the network structure.
+                </p>
 
-            <h3>
-                Markov Chain vs. User Transitions
-            </h3>
-
-            <p>
-                There seems to be some inherent bias of the categories just by the structure of the Wikispeedia network. 
-                Indeed, it seems much more likely to end up in World Regions or Science just because the categories are much bigger and more links lead to it. 
-                Maybe there is a way of disentangling the user behaviour from the network structure? If we consider that users only click on links randomly (i.e. a random walk in the Wikispeedia Network), we can capture the effect of the network structure. 
-                Indeed, if taking a random walk always leads you to World Regions, then maybe the users do not actually choose to go there but the network structure just makes it very likely that they end there anyway.
-            </p>
-
-            <p>
-                To model this, <a href="https://en.wikipedia.org/wiki/Markov_chain"><b>Markov Chains</b></a> come in handy: we can model the transition probabilities from one article A to an article B just by counting the number of links to article B in article A, and dividing by the number of links there are on the page in total. 
-                While this does not eliminate all bias (for instance, links further up in the page may be clicked more), this Markov chain still gives valuable insight about the network structure.
-            </p>
-
-            <p>
-                To get an equivalent transition matrix for users, we can simply count the transitions users actually made at each step. 
-                To compare the two obtained probability distributions, we will use the Kullback–Leibler (\( KL \)) divergence, a type of statistical distance measuring how much a model probability distribution \( Q \) (the random probabilities) differ from a probability distribution \( P \) (our users' transitions). 
-                The KL-divergence for a single element is defined as
+                <p>
+                    To get an equivalent transition matrix for users, we can simply count the transitions users actually made at each step. 
+                    To compare the two obtained probability distributions, we will use the Kullback–Leibler (\( KL \)) divergence, a type of statistical distance measuring how much a model probability distribution \( Q \) (the random probabilities) differ from a probability distribution \( P \) (our users' transitions). 
+                    The KL-divergence for a single element is defined as
+                    
+                    \[ D_{KL}(P || Q)_{ij} = P_{ij} \log \frac{P_{ij}}{Q_{ij}} \] 
+                    
+                    for entries where \( P_{ij} > 0 \) and \( Q_{ij} > 0 \) and is set to \( 0 \) otherwise. 
+                    Each entry \( P_{ij} \) and \( Q_{ij} \) corresponds to the transition probability from article \( i \) to article \( j \).
+                    It is \( 0 \) when \( P_{ij} \) and \( Q_{ij} \) are exactly the same or when the user transition probability is 0. 
+                    A higher value indicates a stronger divergence: if the divergence is high, users choose a certain transition <b>more than the random transitions in the network would suggest</b>. 
+                    That is, the users actually choose this transition and it is not only due to the network structure.
+                    To get an aggregated effect for a certain target article \( j \), we then simply take the mean divergences corresponding to the transition leading to this article (i.e. the mean of all divergences in article \( j \)'s column).
+                </p>
+            </section>
                 
-                \[ D_{KL}(P || Q)_{ij} = P_{ij} \log \frac{P_{ij}}{Q_{ij}} \] 
-                
-                for entries where \( P_{ij} > 0 \) and \( Q_{ij} > 0 \) and is set to \( 0 \) otherwise. 
-                Each entry \( P_{ij} \) and \( Q_{ij} \) corresponds to the transition probability from article \( i \) to article \( j \).
-                It is \( 0 \) when \( P_{ij} \) and \( Q_{ij} \) are exactly the same or when the user transition probability is 0. 
-                A higher value indicates a stronger divergence: if the divergence is high, users choose a certain transition <b>more than the random transitions in the network would suggest</b>. 
-                That is, the users actually choose this transition and it is not only due to the network structure.
-                To get an aggregated effect for a certain target article \( j \), we then simply take the mean divergences corresponding to the transition leading to this article (i.e. the mean of all divergences in article \( j \)'s column).
-            </p>
+            <section id="structure">
+                <h3>
+                    Impact of the Page Structure
+                </h3>
+            </section>
 
-            <iframe src="plots/categories.html" style="width: 100%; height: 600px; border: none;" title="Plotly Chart1"></iframe>
-            <iframe src="plots/sankey.html" style="width: 100%; height: 600px; border: none;" title="Plotly Chart2"></iframe>
+            <section id="comfort">
+                <h3>
+                    Are Users More Comfortable With Wikispeedia Voyages?
+                </h3>
+            </section>
+            
+            <section id="shortest">
+                <h3>
+                    Are Voyages Fast?
+                </h3>
+            
+                <p>
+                    How do Voyages Compare with Algorithmic Optimal Paths?
+                </p>
+            </section>
+            
+            <section id="semantic">
+                <h3>
+                    Semantic Detour with Voyages
+                </h3>
 
-            <h3>
-                Impact of the Page Structure
-            </h3>
+                <p>
+                    We can get an idea of how similar one article is to another by comparing the cosine similarity of the article name embeddings. 
+                    While this is not a precise method (for individual paths, the similarity may or may not make intuitive sense), it seems that the aggregated similarity over all paths does give significant results. 
+                    In the following we analyse the mean similarity between one article and the next in user paths for both Voyages and Other paths. 
+                    For this, we use both BERT and BGEM3 embeddings, to validate our results with at least two different models. 
+                </p>
 
-            <h3>
-                Are Users More Comfortable With Wikispeedia Voyages?
-            </h3>
-        
-            <h3>
-                Semantic Detour with Voyages
-            </h3>
+                <p>
+                    The similarities are computed for all paths and all steps along each path. 
+                    We focus here on the first 10 steps of all paths and take the mean over each step in all paths. 
+                    Because the paths have different lenghts, the mean of e.g. position \( L \) is taken over all paths that have at least \( L \) steps. 
+                    Furthermore, we compute the interval as \( 1.96 \) times the standard error, which we compute in the same fashion as the mean for each path position. 
+                    We also normalise the scale to \( [0, 1] \), as the similarity scores for the two models are in a different, somewhat arbitrary, range. 
+                    To preserve linearity, we simply use min-max scaling for each type of embedding, setting the maximum mean similarity to 1 and the minimum to 0. 
+                </p>
 
-            <p>
-                We can get an idea of how similar one article is to another by comparing the cosine similarity of the article name embeddings. 
-                While this is not a precise method (for individual paths, the similarity may or may not make intuitive sense), it seems that the aggregated similarity over all paths does give significant results. 
-                In the following we analyse the mean similarity between one article and the next in user paths for both Voyages and Other paths. 
-                For this, we use both BERT and BGEM3 embeddings, to validate our results with at least two different models. 
-            </p>
+                <p>
+                    There is a clear trend for both types of embeddings: in the first few clicks, the articles chosen have a low similarity to the previous one. 
+                    This can be interpreted as leaving the original category, because article names in different categories are likely to be less similar. 
+                    After this, the similarity for the next clicks stabilises, with relatively small fluctuations.
+                </p>
 
-            <p>
-                The similarities are computed for all paths and all steps along each path. 
-                We focus here on the first 10 steps of all paths and take the mean over each step in all paths. 
-                Because the paths have different lenghts, the mean of e.g. position \( L \) is taken over all paths that have at least \( L \) steps. 
-                Furthermore, we compute the interval as \( 1.96 \) times the standard error, which we compute in the same fashion as the mean for each path position. 
-                We also normalise the scale to \( [0, 1] \), as the similarity scores for the two models are in a different, somewhat arbitrary, range. 
-                To preserve linearity, we simply use min-max scaling for each type of embedding, setting the maximum mean similarity to 1 and the minimum to 0. 
-            </p>
-
-            <p>
-                There is a clear trend for both types of embeddings: in the first few clicks, the articles chosen have a low similarity to the previous one. 
-                This can be interpreted as leaving the original category, because article names in different categories are likely to be less similar. 
-                After this, the similarity for the next clicks stabilises, with relatively small fluctuations.
-            </p>
-
-            <p>
-                There is also a statistically significant difference between Voyages and Other paths. 
-                Generally, both embeddings agree that the similarity along paths is generally lower for Voyages. 
-                This could indeed show that there is a stronger detour or zoom-out behaviour from users in Voyages, as the articles visited are on average less similar to one-another.
-            </p>
+                <p>
+                    There is also a statistically significant difference between Voyages and Other paths. 
+                    Generally, both embeddings agree that the similarity along paths is generally lower for Voyages. 
+                    This could indeed show that there is a stronger detour or zoom-out behaviour from users in Voyages, as the articles visited are on average less similar to one-another.
+                </p>
+            </section>
         </section>
     </div>
   </div>

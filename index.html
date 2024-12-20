@@ -140,12 +140,8 @@
                     To achieve this, we parsed and extracted all links along with other useful information from the HTML file of the articles.
                     The first step is to identify the position of links to a particular category within the article (in purple in the following plot). 
                     "Position" refers to the rank of a link, such as whether it is the first, last, or somewhere in between.
-                    By computing the distribution of these category-specific links across all articles, we can determine if there is a pattern: Do links in certain categories tend to appear more frequently at the beginning, middle, or end of the page, or is the distribution random? 
-                    Understanding this distribution will help us assess whether users' link choices are influenced by the position of the links on the page .
-                </p>
-                <p>
-                    The next step is to analyze where users are clicking on an article page. We examine the positions of the links that were clicked. If users tend to click on links positioned earlier in the article more frequently than those at the end, this would suggest that link position impacts user behaviour.
-                    To perform this analysis, we calculate the typical position of the clicked link for each article in each user path. If a link to the target article appears multiple times, we use the average position of these links as a representative value.
+                    By computing the distribution of these category-specific links across all articles, we can assess whether users' link choices are influenced by the position of the links on the page.
+                    The next step is to analyze where users are clicking on an article page. We calculate the typical position of the clicked link for each article in each user path (in blue). 
                 </p>
                     <div class="plot-container-wrapper">
                         <div class="plot-container-right">

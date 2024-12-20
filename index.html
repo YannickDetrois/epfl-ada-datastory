@@ -266,43 +266,14 @@
                     <iframe src="plots/plot_differences.html" style="width: 100%; margin: auto; height: 800px; border: none;" title="Plotly Chart2"></iframe>
                 </div>
                 <p>
-                    Wikispeedia Voyage paths are significantly longer in time than non-voyage paths, with more back-clicks (mean backclicks number of 0.54 compared to 0.31).There is a slightly lower number of ratings of 1 (on a scale from 1 to 5, where 1 indicates ease and 5 indicates difficulty), suggesting that the task is perceived as a bit more difficult. Contrary to what might be expected, the size of the paths (number of steps) remains the same between Voyage and Non-Voyage paths.
+                    Wikispeedia Voyage paths are significantly longer in time than non-voyage paths, with more back-clicks (mean backclicks number of \( 0.54 \) compared to \( 0.31 \)).There is a slightly lower number of ratings of 1 (on a scale from 1 to 5, where 1 indicates ease and 5 indicates difficulty), suggesting that the task is perceived as a bit more difficult. Contrary to what might be expected, the size of the paths (number of steps) remains the same between Voyage and Non-Voyage paths.
                     Moreover, the completion rate for Voyage paths is higher, indicating a level of comfort or strategic advantage.
                 </p>
-            </section>
-            
-            <section id="shortest">
-                <h3>
-                    Are Voyages Fast?
-                </h3>
-            
-                <p>
-                    Since we learned that users pass through World Regions more often than they would during random exploration, we can evaluate whether this is an effective strategy or if there might be a better approach. One way to address this question is to compare user paths with optimal paths.
-                <p>
-                    Let's define the optimal path as the shortest path that can be taken. This assumption aligns with the game’s goal: to reach the target while minimizing the number of clicks. To analyze the effectiveness of the World Regions strategy, we can examine whether users’ choice of categories aligns with the categories in the optimal paths. 
-                    This involves computing the optimal path by constructing a directed graph where edges represent connections between articles. Using this graph, we calculate all the shortest paths for each source-target pair present in users’ games. Interestingly, some pairs have a surprisingly large number of possible optimal paths, up to 599!
-                <p>
-                    The figure here shows the normalized percentage of times each category is visited at each step. For simplicity, only the first 10 steps of user paths are displayed, while optimal paths are shown in full. There is a steep increase for certain categories at the 5th or 6th step, reflecting the fact that fewer paths of this length exist, thus representing fewer categories.
-                <p>
-                    <!-- OPTIMAL PATHS PLOT -->
-                <iframe src="plots/optimal.html" style="width: 100%; height: 600px; border: none;" title="Plotly ChartO6"></iframe>
-                <p>   
-                    We clearly see that in the early steps, World Regions appears most frequently, with its presence steadily decreasing over subsequent steps, aligning with other categories. This trend holds for both user and optimal paths, suggesting that using World Regions early in the path is generally a good strategy.
-                <p>
-                    The plot on the right compares the percentage differences, averaged across all steps. Surprisingly, users pass through World Regions less frequently than optimal paths suggest. This finding is surprising, as we intuitively expected humans to rely more on Wikispeedia Voyages than necessary. However, the opposite is true. Users might benefit from using this category more, maybe because, as shown earlier, it is highly interconnected with other categories.
-                </p>
-            </section>
-            
-            <section id="semantic">
-                <h3>
-                    Semantic Detour with Voyages
-                </h3>
 
                 <p>
-                    We can get an idea of how similar one article is to another by comparing the cosine similarity of the article name embeddings. 
-                    While this is not a precise method (for individual paths, the similarity may or may not make intuitive sense), it seems that the aggregated similarity over all paths does give significant results. 
-                    In the following we analyse the mean similarity between one article and the next in user paths for both Voyages and Other paths. 
-                    For this, we use both BERT and BGEM3 embeddings, to validate our results with at least two different models. 
+                    To delve further into our finding that Voyage paths are longer and have more back-clicks, we can look into <b>how similar the names of articles along the path are</b>.
+                    For this, we use both BERT and BGEM3 embeddings of article names (to validate our results with at least two different models) and compute their similarity as the <a href="https://en.wikipedia.org/wiki/Cosine_similarity">cosine similarity</a>. 
+                    While this is <b>not</b> a precise method (for individual paths, the similarity may or may not make intuitive sense), it seems that the aggregated similarity over all paths does give significant results. 
                 </p>
 
                 <p>
@@ -310,8 +281,7 @@
                     We focus here on the first 10 steps of all paths and take the mean over each step in all paths. 
                     Because the paths have different lenghts, the mean of e.g. position \( L \) is taken over all paths that have at least \( L \) steps. 
                     Furthermore, we compute the interval as \( 1.96 \) times the standard error, which we compute in the same fashion as the mean for each path position. 
-                    We also normalise the scale to \( [0, 1] \), as the similarity scores for the two models are in a different, somewhat arbitrary, range. 
-                    To preserve linearity, we simply use min-max scaling for each type of embedding, setting the maximum mean similarity to 1 and the minimum to 0. 
+                    We also min-max normalise the scale to \( [0, 1] \), as the similarity scores for the two models are in a different, somewhat arbitrary, range. 
                 </p>
 
                 <!-- SIMILARITY PLOT -->
@@ -328,7 +298,8 @@
                 <p>
                     There is also a statistically significant difference between Voyages and Other paths. 
                     Generally, both embeddings agree that the similarity along paths is generally lower for Voyages. 
-                    This could indeed show that there is a stronger detour or zoom-out behaviour from users in Voyages, as the articles visited are on average less similar to one-another.
+                    This could indeed show that there is a stronger detour and zoom-out behaviour from users in Voyages, as the articles visited are on average less similar to one-another.
+                    This could also explain the longer paths and more back-clicks: if users more often radically change to less similar articles, they might make more mistakes and end up taking longer.
                 </p>
             </section>
             
@@ -338,12 +309,12 @@
                 </h3>
             
                 <p>
-                    Now that we know that users pass through World Regions more often than they would during random exploration, we can evaluate whether this is an effective strategy or if there might be a better approach. One way to address this question is to compare user paths with optimal paths.
+                    Since we learned that users pass through World Regions more often than they would during random exploration, we can evaluate whether this is an effective strategy or if there might be a better approach. One way to address this question is to compare user paths with optimal paths.
                 <p>
-                    Let's define the optimal path as the shortest path that can be taken. This assumption aligns with the game's goal: to reach the target while minimizing the number of clicks. To analyze the effectiveness of the World Regions strategy, we can examine whether users’ choice of categories aligns with the categories in the optimal paths. 
-                    This involves computing the optimal path by constructing a directed graph where edges represent connections between articles. Using this graph, we calculate all the shortest paths for each source-target pair present in users’ games. Interestingly, some pairs have a surprisingly large number of possible optimal paths, up to 599!
+                    Let's define the optimal path as the shortest path that can be taken. This assumption aligns with the game's goal: to reach the target while minimizing the number of clicks. To analyze the effectiveness of the World Regions strategy, we can examine whether users' choice of categories aligns with the categories in the optimal paths. 
+                    This involves computing the optimal path by constructing a directed graph where edges represent connections between articles. Using this graph, we calculate all the shortest paths for each source-target pair present in users' games. Interestingly, some pairs have a surprisingly large number of possible optimal paths, up to 599!
                 <p>
-                    The figure here shows the normalized percentage of times each category is visited at each step. For simplicity, only the first 10 steps of user paths are displayed, while optimal paths are shown in full. There is a steep increase for certain categories at the 5th or 6th step, reflecting the fact that fewer paths of this length exist, thus representing fewer categories.
+                    The figure below shows the normalized percentage of times each category is visited at each step. For simplicity, only the first 10 steps of user paths are displayed, while optimal paths are shown in full. There is a steep increase for certain categories at the 5th or 6th step, reflecting the fact that fewer paths of this length exist, thus representing fewer categories.
                 <p>
                     <!-- OPTIMAL PATHS PLOT -->
                 <iframe src="plots/optimal.html" style="width: 100%; height: 600px; border: none;" title="Plotly ChartO6"></iframe>
@@ -353,6 +324,7 @@
                     The plot on the right compares the percentage differences, averaged across all steps. Surprisingly, users pass through World Regions less frequently than optimal paths suggest. This finding is surprising, as we intuitively expected humans to rely more on Wikispeedia Voyages than necessary. However, the opposite is true. Users might benefit from using this category more, maybe because, as shown earlier, it is highly interconnected with other categories.
                 </p>
             </section>
+        
             
             <section id="relax">
                 <h3>

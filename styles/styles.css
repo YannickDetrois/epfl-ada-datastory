@@ -324,6 +324,51 @@ section {
   color: transparent;
 }
 
+/* Top-level ordered list */
+#markov ol {
+  font-family: "OpenSansReg";
+  text-align: justify;
+  font-size: 16px;
+  list-style-type: none; /* Remove default numbering */
+  counter-reset: list-counter; /* Initialize custom counter */
+  margin-left: 0; /* Remove unnecessary left margin */
+  padding-left: 0; /* No padding at the beginning */
+}
+
+/* Top-level list items */
+#markov ol > li {
+  position: relative;
+  margin-bottom: 10px; /* Add spacing between items */
+  padding-left: 30px; /* Indent the text only */
+}
+
+/* Custom numbering for top-level items */
+#markov ol > li::before {
+  content: counter(list-counter) ". "; /* Custom numbering for ordered list */
+  counter-increment: list-counter; /* Increment the counter */
+  font-size: 18px; /* Customize number size */
+  position: absolute;
+  left: 0; /* Position number at the far left */
+}
+
+/* Nested unordered list for bullet points */
+#markov ul {
+  list-style-type: disc; /* Use bullets */
+  margin-left: 30px; /* Indent nested bullets relative to parent */
+  padding-left: 0; /* No extra padding */
+}
+
+/* Nested unordered list items */
+#markov ul li {
+  padding-left: 0; /* Reset padding for bullet text */
+  margin-bottom: 5px; /* Add spacing between bullets */
+}
+
+
+
+
+
+
 /* Conclusion */
 #conclusion{
   padding-top: 80px;

@@ -137,17 +137,18 @@
                 <p>
                     We create a network <em>(directed graph)</em> to represent transitions between different categories of articles:
                 </p>
+
                 <ol>
                     <li>
                         <strong>Nodes:</strong> Each node represents a category of articles, where individual articles are grouped under their primary category.
                         <ul>
-                            <li>The <strong>node size</strong> reflects the number of articles within a category.</li>
+                            <li>The node size reflects the number of articles within a category.</li>
                         </ul>
                     </li>
                     <li>
                         <strong>Edges:</strong> Directed edges indicate transitions between categories, whether observed in user paths or inferred from link structure.
                         <ul>
-                            <li>The <strong>edge width</strong> represents the frequency of transitions between categories.</li>
+                            <li>The edge width represents the frequency of transitions between categories.</li>
                         </ul>
                     </li>
                 </ol>
@@ -198,12 +199,23 @@
 
                 <!-- MARKOV -->
 
-                <p>   
-                    It seems that even when comparing the random transitions (that already favour World Region articles) with the user transitions, there is a consistent bias towards World Region articles. This shows that users use certain articles more than the already favourable random transitions would suggest. This could have multiple reasons: it could be because users are more comfortable with the articles' topic, but it could also be as part of the users' strategy, if users noticed that these articles had promising connectivity.
-                    We can take two main conclusions from these figures:
-                        1. In the first few steps, World Region articles seem to be chosen by users much more than random. The Divergence Value is statistically significantly higher for World Regions than it is for all the other categories.
-                        2. Certain articles in the World Region category have a much higher impact than others. Looking at the scales of mean divergence ( \( 10^{-1} \) for United States vs \( 10^{-4} \) for aggregated World Regions), it seems that a few articles contribute much more than others to World Regions being so popular.
+                <p>
+                    It seems that even when comparing the random transitions (that already favour World Region articles) with the user transitions, there is a consistent bias towards World Region articles. 
+                    This shows that users use certain articles more than the already favourable random transitions would suggest. 
+                    This could have multiple reasons: it could be because users are more comfortable with the articles' topic, but it could also be part of the users' strategy if they noticed that these articles had promising connectivity.
                 </p>
+                <p>We can take two main conclusions from these figures:</p>
+                <ol>
+                    <li>
+                        In the first few steps, World Region articles seem to be chosen by users much more than random. 
+                        The Divergence Value is statistically significantly higher for World Regions than it is for all the other categories.
+                    </li>
+                    <li>
+                        Certain articles in the World Region category have a much higher impact than others. 
+                        Looking at the scales of mean divergence (\( 10^{-1} \) for United States vs. \( 10^{-4} \) for aggregated World Regions), it seems that a few articles contribute much more than others to World Regions being so popular.
+                    </li>
+                </ol>
+                
             </section>
                 
             <section id="structure">

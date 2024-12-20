@@ -121,7 +121,29 @@
                 </h3>
             
                 <p>
-                    Networks
+                    Before diving into detailed comparisons between user behavior and random network transitions, it is important to first explore the general structure of transitions between categories. 
+                    This helps us establish a baseline understanding of both the <strong>users' navigation patterns</strong> and the <strong>inherent structure of the Wikispeedia network</strong>.
+                </p>
+                
+                <p>
+                    We create a network <em>(directed graph)</em> to represent transitions between different categories of articles:
+                </p>
+                <ol>
+                    <li>
+                        <strong>Nodes:</strong> Each node represents a category of articles, where individual articles are grouped under their primary category.
+                        <ul>
+                            <li>The <strong>node size</strong> reflects the number of articles within a category.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>Edges:</strong> Directed edges indicate transitions between categories, whether observed in user paths or inferred from link structure.
+                        <ul>
+                            <li>The <strong>edge width</strong> represents the frequency of transitions between categories.</li>
+                        </ul>
+                    </li>
+                </ol>
+                <p>
+                    <em>* Self-loops (transitions within the same category) are excluded to focus on inter-category transitions.</em>
                 </p>
                   
                 <!-- NETWORKS -->
@@ -145,7 +167,7 @@
                     Let's have a look at which articles we seem to converge naturally to when taking a random walk in the Wikispeedia network.
 
                     The transition matrix's \( P \) left eigenvector with eigenvalue \( 1 \) (i.e. \( x \) such that \( xP=x \)) whose elements sum to \( 1 \) is called the steady-state of the system. 
-                    After $\infty$ iterations, starting from whatever article, the probability distribution of the end article is given by $x$. 
+                    After \( infty \) iterations, starting from whatever article, the probability distribution of the end article is given by \( x \). 
                     The steady-state proves that the article to most likely randomly arrive at in the network is United States (with \( 1.35\% \) probability). 
                     , followed mainly by other countries. It looks like countries are naturally favoured by the network structure. This is interesting as it shows that there is definitely a bias towards World Regions (particularly large countries) in Wikispeedia articles: they have more links and are more interconnected than other articles. This is a first hint that World Regions are intertwined with the human mind, as humans wrote the articles in questions and made them particularly rich and link-dense.
                 </p>
@@ -171,7 +193,7 @@
                     It seems that even when comparing the random transitions (that already favour World Region articles) with the user transitions, there is a consistent bias towards World Region articles. This shows that users use certain articles more than the already favourable random transitions would suggest. This could have multiple reasons: it could be because users are more comfortable with the articles' topic, but it could also be as part of the users' strategy, if users noticed that these articles had promising connectivity.
                     We can take two main conclusions from these figures:
                         1. In the first few steps, World Region articles seem to be chosen by users much more than random. The Divergence Value is statistically significantly higher for World Regions than it is for all the other categories.
-                        2. Certain articles in the World Region category have a much higher impact than others. Looking at the scales of mean divergence ($10^{-1}$ for United States vs $10^{-4}$ for aggregated World Regions), it seems that a few articles contribute much more than others to World Regions being so popular.
+                        2. Certain articles in the World Region category have a much higher impact than others. Looking at the scales of mean divergence ( \( 10^{-1} \) for United States vs \( 10^{-4} \) for aggregated World Regions), it seems that a few articles contribute much more than others to World Regions being so popular.
                 </p>
             </section>
                 

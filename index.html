@@ -46,6 +46,7 @@
 
   </section>
 
+  <!-- INTRO -->
   <div class="intro-container">
     <section id="introduction"> 
         <h2>
@@ -77,6 +78,7 @@
     </aside>
   </div>
     
+  <!-- STORY -->
   <div class="bg-container">
     <div class="container">
         <section id="story">
@@ -84,6 +86,7 @@
                 <span class="gradient-text">The Story</span>
             </h2>
 
+            <!-- WIKISPEEDIA VOYAGES -->
             <section id="voyages">
                 <h3>
                     What even are Wikispeedia Voyages?
@@ -124,6 +127,7 @@
                 </p>
             </section>
 
+            <!-- PAGE STRUCTURE -->
             <section id="structure">
                 <h3>
                     Impact of the Page Structure
@@ -176,6 +180,7 @@
                     </p>
             </section>
             
+            <!-- MARKOV CHAINS -->
             <section id="markov">
                 <h3>
                     Mr. Markov vs. Users
@@ -211,7 +216,10 @@
 
                 <p>
                     There seems to be some <b>inherent bias of the categories</b> just by the structure of the Wikispeedia network. 
-                    Indeed, it seems much more likely to end up in World Regions or Science just because the categories are much bigger and more links lead to it. 
+                    Indeed, it seems much more likely to end up in World Regions or Science just because the categories are much bigger and more links lead to it.
+                    This is a first hint that World Regions are intertwined with the human mind, as humans wrote the articles in questions and made them particularly rich and link-dense.
+                </p>
+                <p>
                     Maybe there is a way of disentangling the user behaviour from the network structure? If we consider that users only click on links randomly (i.e. a random walk in the Wikispeedia Network), we can capture the effect of the network structure. 
                     Indeed, if taking a random walk always leads you to World Regions, then maybe the users do not actually choose to go there but the network structure just makes it very likely that they end there anyway.
                 </p>
@@ -219,7 +227,7 @@
                 <p> 
                     To model this, let's introduce our friend <a href="https://en.wikipedia.org/wiki/Andrey_Markov">Andrey Andreyevich Markov</a>, who is known for his work on <a href="https://en.wikipedia.org/wiki/Markov_chain"><b>Markov Chains</b></a>. 
                     Using these chains, we can model the transition probabilities from one article A to an article B just by counting the number of links to article B in article A, and dividing by the number of links there are on the page in total. 
-                    While we did find in <a href="#structure"> the section about page structure</a> that links further up in the page may be clicked more, we consider the homogenous click probability hypothesis sufficient for the Markov chain to give valuable insight about the network structure.
+                    While we did find in <a href="#structure"> the section about page structure</a> that links further up in the page may be clicked more, the deviation (only \( 7\% \) above the middle) is small enough to consider the homogenous click probability hypothesis sufficient for the Markov chain to give valuable insight about the network structure.
                 </p>
 
                 <p>
@@ -252,7 +260,7 @@
                 </p>
             </section>
             
-
+            <!-- USER BEHAVIOUR -->
             <section id="behaviour">
                 <h3>
                     User Behaviour in Voyages
@@ -303,9 +311,10 @@
                 </p>
             </section>
             
+            <!-- SHORTEST PATHS -->
             <section id="shortest">
                 <h3>
-                    Are Voyages Fast?
+                    Are Voyages a Good Strategy?
                 </h3>
             
                 <p>
@@ -325,37 +334,79 @@
                 </p>
             </section>
         
-            
+            <!-- BUT WAIT? -->
             <section id="relax">
                 <h3>
                     But Wait?
                 </h3>
 
-                We started with the hypothesis that all of the World Categories contributes. 
+                <p>
+                    Our initial hypothesis naively generalises that <em>any</em> article related to countries, places or cities can make Voyages.
+                    We then validated our assumption observed that there were indeed significant changes between Voyages and other paths.
+                    <b>But Wait?</b> What if only a subset of well know large countries really contribute to the observations made about Voyages?
+                </p>
+                
+                <p> 
+                    We can ask our friend Andrey Andreyevich Markov for advice again. 
+                    He informed us that the normalised left eigenvector of the transition matrix \( P \) with eigenvalue \( 1 \) is called the steady-state of the system. 
+                    This steady-state gives the probability distribution of which article to end up taking infinitely many steps in the random network. For the 8 first values we get:
+                </p>
 
+                <div style="width: 100%; margin: auto;">
+                    <table style="border-collapse: collapse; width: 100%; border: 1px solid #ddd;">
+                        <thead>
+                            <tr style="background-color: #f2f2f2;">
+                                <th style="border: 1px solid #ddd; padding: 4px; text-align: left;">Metric</th>
+                                <th style="border: 1px solid #ddd; padding: 4px; text-align: left;">United States</th>
+                                <th style="border: 1px solid #ddd; padding: 4px; text-align: left;">France</th>
+                                <th style="border: 1px solid #ddd; padding: 4px; text-align: left;">United Kingdom</th>
+                                <th style="border: 1px solid #ddd; padding: 4px; text-align: left;">Europe</th>
+                                <th style="border: 1px solid #ddd; padding: 4px; text-align: left;">Germany</th>
+                                <th style="border: 1px solid #ddd; padding: 4px; text-align: left;">English language</th>
+                                <th style="border: 1px solid #ddd; padding: 4px; text-align: left;">European Union</th>
+                                <th style="border: 1px solid #ddd; padding: 4px; text-align: left;">World War II</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background-color: #ffffff;">
+                                <td style="border: 1px solid #ddd; padding: 4px;">Steady State Proportion</td>
+                                <td style="border: 1px solid #ddd; padding: 4px;">0.013515</td>
+                                <td style="border: 1px solid #ddd; padding: 4px;">0.010126</td>
+                                <td style="border: 1px solid #ddd; padding: 4px;">0.009922</td>
+                                <td style="border: 1px solid #ddd; padding: 4px;">0.007502</td>
+                                <td style="border: 1px solid #ddd; padding: 4px;">0.007472</td>
+                                <td style="border: 1px solid #ddd; padding: 4px;">0.006910</td>
+                                <td style="border: 1px solid #ddd; padding: 4px;">0.006109</td>
+                                <td style="border: 1px solid #ddd; padding: 4px;">0.005818</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>
+                    Indeed, the most likely randomly arrive at in the network is United States (with \( 1.35\% \) probability), followed mainly by other World Regions. 
+                    Most of the World Region articles in fact have a steady state probability that is almost 0. That means that only a subset of the World Region articles actually contribute to the effect of Wikispeedia Voyages that we observed.
+                    Indeed, while places such as "Suburbs of Johannesburg" do respect our definition of Voyages and World Regions, they are not <em>really</em> what we pictured in the first place.
+                    Looking at the user click divergence for single articles and not entire categories (see the first plot about \( KL \) divergence) gives the following figure.
+                </p>
+            
                 <!-- MARKOV -->
                 <div style="width: 80%; margin: 0 auto">
                     <iframe src="plots/MarkovArticles.html" style="width: 100%; height: 620px; border: none;" title="Plotly Chart1"></iframe>
                 </div>
 
                 <p>
-                    First, let's see whether the obtained transition matrix makes sense with what we have observed previously. 
-                    Let's have a look at which articles we seem to converge naturally to when taking a random walk in the Wikispeedia network.
-
-                    The transition matrix's \( P \) left eigenvector with eigenvalue \( 1 \) (i.e. \( x \) such that \( xP=x \)) whose elements sum to \( 1 \) is called the steady-state of the system. 
-                    After \( infty \) iterations, starting from whatever article, the probability distribution of the end article is given by \( x \). 
-                    The steady-state proves that the article to most likely randomly arrive at in the network is United States (with \( 1.35\% \) probability). 
-                    , followed mainly by other countries. It looks like countries are naturally favoured by the network structure. This is interesting as it shows that there is definitely a bias towards World Regions (particularly large countries) in Wikispeedia articles: they have more links and are more interconnected than other articles. This is a first hint that World Regions are intertwined with the human mind, as humans wrote the articles in questions and made them particularly rich and link-dense.
-
-                    Certain articles in the World Region category have a much higher impact than others. 
-                        Looking at the scales of mean divergence (\( 10^{-1} \) for United States vs. \( 10^{-4} \) for aggregated World Regions), it seems that a few articles contribute much more than others to World Regions being so popular.
+                    Certain articles in the World Region category have a much <b>higher impact than others</b>. 
+                    Looking at the scales of mean divergence (\( 10^{-1} \) for United States vs. \( 10^{-4} \) for aggregated World Regions), it seems that a few articles contribute much more than others to World Regions being so popular.
+                    While all our previous conclusions remain valid, it is important to note that the conclusions would probably be more extreme when focussing only on a subset of hubs within World Regions.
+                    There are a lot of articles in World Regions that are hubs that are central and used often, but certainly not all of the articles such as hypothesised initially.
                 </p>
-                
             </section>
         </section>
     </div>
   </div>
 
+  <!-- CONCLUSION -->
   <div class="bg-container">
     <div class="container">
         <section id="conclusion">

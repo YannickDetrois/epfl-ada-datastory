@@ -296,7 +296,7 @@ section {
   font-family: 'LinLibCap';
   padding-bottom: 15px;
   font-weight: normal;
-  margin-top: 20px;
+  margin-top: 25px;
   text-align: left;
 }
 
@@ -364,11 +364,6 @@ section {
   margin-bottom: 5px; /* Add spacing between bullets */
 }
 
-
-
-
-
-
 /* Conclusion */
 #conclusion{
   padding-top: 80px;
@@ -377,6 +372,8 @@ section {
   font-family: "OpenSansReg";
   text-align: justify;
   font-size: 16px;
+  width: 80%;
+  margin: auto;
 }
 
 #conclusion h2{

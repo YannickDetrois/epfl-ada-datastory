@@ -26,11 +26,11 @@
 
   <div class="sidebar">
     <a href="#voyages" class="active" id="link1">Wikispeedia Voyages</a>
-    <a href="#markov" id="link2">Markov Chains</a>
-    <a href="#structure" id="link3">Page Structure</a>
-    <a href="#comfort" id="link4">User Comfort</a>
+    <a href="#structure" id="link2">Page Structure</a>
+    <a href="#markov" id="link3">Markov Chains</a>
+    <a href="#behaviour" id="link4">User Behaviour</a>
     <a href="#shortest" id="link5">Shortest Paths</a>
-    <a href="#semantic" id="link6">Semantic Detour</a>
+    <a href="#relax" id="link6">But Wait?</a>
   </div>
 
   <section id="showcase">
@@ -52,7 +52,7 @@
             Introduction
         </h2>
         <p>
-            While playing our first few Wikispeedia games (you can try by yourself <a href="https://dlab.epfl.ch/wikispeedia/play/" target="_blank" rel="noopener noreferrer"><em>here</em></a>), we quickly noticed that we tend to adopt a strategy looking for articles about countries and world regions to reach the goal, sometimes regardless of the article we start in or need to reach.
+            While playing our first few Wikispeedia games <a href="https://dlab.epfl.ch/wikispeedia/play/" target="_blank" rel="noopener noreferrer"><em>[play here]</em></a>, we quickly noticed that we tend to adopt a strategy looking for articles about countries and world regions to reach the goal, sometimes regardless of the article we start in or need to reach.
             This made us wonder whether our strategy - which we call <b>Wikispeedia Voyages</b> - is a good strategy, or at least popular with other Wikispeedia players too.
         </p>
         
@@ -61,7 +61,7 @@
             The goal in the Wikispeedia game is to reach a target Wikipedia article from a start article with as little steps and as quickly as possible, just by clicking on links to the next page. 
             The dataset <a href="https://snap.stanford.edu/data/wikispeedia.html" target="_blank" rel="noopener noreferrer">[<em>link</em>]</a> collects both information about players' behaviour and the network structure of Wikipedia articles, 
             allowing to analyse Voyages under multiple perspectives. Our aim is to understand to what extent the network structure, analyzed through Markov Chains,
-            influences gameplay, while also examining user difficulty in Voyages compared to other strategies, their alignment with shortest paths, and insights from semantic analysis.
+            influences gameplay, while also examining user behaviour in Voyages compared to other strategies, their alignment with shortest paths, and insights from semantic analysis.
         </p>
     </section>  
     <aside id="research-questions">
@@ -90,145 +90,57 @@
                 </h3>
     
                 <p>
-                    Let's address the elephant in the room: what exactly are Wikispeedia Voyages? Simply put, they are paths that navigate through articles tagged with the "World Regions" category. 
+                    Let's address the elephant in the room: what exactly are Wikispeedia Voyages? In short, they are defined as a game path where neither the source nor the target is in **World Regions**, but the path includes at least one article from this category. 
                     But that raises another question: how do we identify all the articles that qualify as "World Regions"? 
                     The dataset attributes a category to each article in the network - we found out that by combining all the articles with main category "Countries" and a subset of "Geography" subcategories, we obtain an exhaustive set of articles that refer to places, cities, regions or countries.
                     The Treemap below shows what articles the new category "World Regions" comprises, as well as its size and sub-structure comparing to all the other categories.
                 </p>
 
                 <!-- TREEMAP -->
-                <iframe src="plots/categories.html" style="width: 100%; height: 600px; border: none;" title="Plotly Chart1"></iframe>
+                <iframe src="plots/categories.html" style="width: 100%; height: 600px; border: none; margin-bottom: 20px;" title="Plotly Chart1"></iframe>
                 
                 <p>
-                    Now that we have a static information about the distribution of categories in the network, we need to integrate the dynamic information about user paths.
-                    Even though World Regions represent about a fifth of all the articles in the network, their distribution in the start and goal articles in user paths also represents a possible bias in the analysis.
-                    The following Sankey flow chart shows how the initial categories are regrouped into "World Regions" and "Others" categories, and then to which proportions these categories are represented in user paths start nodes.
-                    The subsequent layers represent how many of the paths starting and finishing in "Others" evolve to become Wikispeedia Voyages by passing at any time in the path through World Regions.
+                    To visualise the changes of this new category assignment, this Sankey flow chart shows how the initial categories are regrouped into "World Regions" and "Others" categories, displaying their final distribution in the dataset.
                 </p>
 
-                <!-- SANKEY -->
-                <div style="width: 80%; margin: 0 auto;">
+                <!-- SANKEY FIRST -->
+                <div style="width: 80%; margin: 0 auto; margin-top: 50px;">
                     <div class="flourish-embed flourish-sankey" data-src="visualisation/20879912"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/20879912/thumbnail" width="100%" alt="sankey visualization" /></noscript></div>
                 </div>
-                
-                <div class="flourish-embed flourish-sankey" data-src="visualisation/20856936"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/20856936/thumbnail" width="100%" alt="sankey visualization" /></noscript></div>
 
+                <!-- SANKEY SECOND -->
+                Now that we have <b>static</b> information about the distribution of categories in the network, we need to integrate the <b>dynamic</b> information about user paths.
+                World Regions represent about a fifth of all the articles in the network, but their distribution in the start and goal articles in user paths can also represent a possible bias in the analysis.
+
+                This second Sankey plot shows to which proportions these categories are represented in user paths start and end nodes and how many of the paths starting and finishing in "Others" evolve to become Wikispeedia Voyages.
+                
+                <div style="width: 90%; margin: 0 auto; margin-bottom: 20px;">
+                    <div class="flourish-embed flourish-sankey" data-src="visualisation/20856936"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/20856936/thumbnail" width="100%" alt="sankey visualization" /></noscript></div>
+                </div>
                 <p>
                     About a third of all the paths are Voyages, which is a sizable portion of the user paths.
+                    It seems that we are not the only ones to use the Wikispeedia Voyage strategy, as more than \( 40\% \) of the users that started in "Others", deviated through "World Regions" to rejoin "Others".
+                    Now that we have established that there seems to be some interesting behavioural phenomenon, let's have a closer look at what could explain it.
                 </p>
             </section>
-            
-            <section id="markov">
-                <h3>
-                    Mr. Markov vs. Users
-                </h3>
-            
-                <p>
-                    Before diving into detailed comparisons between user behavior and random network transitions, it is important to first explore the general structure of transitions between categories. 
-                    This helps us establish a baseline understanding of both the <strong>users' navigation patterns</strong> and the <strong>inherent structure of the Wikispeedia network</strong>.
-                </p>
-                
-                <p>
-                    We create a network <em>(directed graph)</em> to represent transitions between different categories of articles:
-                </p>
 
-                <ol>
-                    <li>
-                        <strong>Nodes:</strong> Each node represents a category of articles, where individual articles are grouped under their primary category.
-                        <ul>
-                            <li>The node size reflects the number of articles within a category.</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <strong>Edges:</strong> Directed edges indicate transitions between categories, whether observed in user paths or inferred from link structure.
-                        <ul>
-                            <li>The edge width represents the frequency of transitions between categories.</li>
-                        </ul>
-                    </li>
-                </ol>
-                <p>
-                    <em>* Self-loops (transitions within the same category) are excluded to focus on inter-category transitions.</em>
-                </p>
-                  
-                <!-- NETWORKS -->
-                <img src="plots/networks.png" alt="Network structure" style="width:100%; display:block; margin:auto;">
-
-
-                <p>
-                    There seems to be some inherent bias of the categories just by the structure of the Wikispeedia network. 
-                    Indeed, it seems much more likely to end up in World Regions or Science just because the categories are much bigger and more links lead to it. 
-                    Maybe there is a way of disentangling the user behaviour from the network structure? If we consider that users only click on links randomly (i.e. a random walk in the Wikispeedia Network), we can capture the effect of the network structure. 
-                    Indeed, if taking a random walk always leads you to World Regions, then maybe the users do not actually choose to go there but the network structure just makes it very likely that they end there anyway.
-                </p>
-
-                <p> Andrey Andreyevich Markov!!
-                    To model this, <a href="https://en.wikipedia.org/wiki/Markov_chain"><b>Markov Chains</b></a> come in handy: we can model the transition probabilities from one article A to an article B just by counting the number of links to article B in article A, and dividing by the number of links there are on the page in total. 
-                    While this does not eliminate all bias (for instance, links further up in the page may be clicked more), this Markov chain still gives valuable insight about the network structure.
-                </p>
-
-                <p>
-                    First, let's see whether the obtained transition matrix makes sense with what we have observed previously. 
-                    Let's have a look at which articles we seem to converge naturally to when taking a random walk in the Wikispeedia network.
-
-                    The transition matrix's \( P \) left eigenvector with eigenvalue \( 1 \) (i.e. \( x \) such that \( xP=x \)) whose elements sum to \( 1 \) is called the steady-state of the system. 
-                    After \( infty \) iterations, starting from whatever article, the probability distribution of the end article is given by \( x \). 
-                    The steady-state proves that the article to most likely randomly arrive at in the network is United States (with \( 1.35\% \) probability). 
-                    , followed mainly by other countries. It looks like countries are naturally favoured by the network structure. This is interesting as it shows that there is definitely a bias towards World Regions (particularly large countries) in Wikispeedia articles: they have more links and are more interconnected than other articles. This is a first hint that World Regions are intertwined with the human mind, as humans wrote the articles in questions and made them particularly rich and link-dense.
-                </p>
-
-                <p>
-                    To get an equivalent transition matrix for users, we can simply count the transitions users actually made at each step. 
-                    To compare the two obtained probability distributions, we will use the Kullback–Leibler (\( KL \)) divergence, a type of statistical distance measuring how much a model probability distribution \( Q \) (the random probabilities) differ from a probability distribution \( P \) (our users' transitions). 
-                    The KL-divergence for a single element is defined as
-                    
-                    \[ D_{KL}(P || Q)_{ij} = P_{ij} \log \frac{P_{ij}}{Q_{ij}} \] 
-                    
-                    for entries where \( P_{ij} > 0 \) and \( Q_{ij} > 0 \) and is set to \( 0 \) otherwise. 
-                    Each entry \( P_{ij} \) and \( Q_{ij} \) corresponds to the transition probability from article \( i \) to article \( j \).
-                    It is \( 0 \) when \( P_{ij} \) and \( Q_{ij} \) are exactly the same or when the user transition probability is 0. 
-                    A higher value indicates a stronger divergence: if the divergence is high, users choose a certain transition <b>more than the random transitions in the network would suggest</b>. 
-                    That is, the users actually choose this transition and it is not only due to the network structure.
-                    To get an aggregated effect for a certain target article \( j \), we then simply take the mean divergences corresponding to the transition leading to this article (i.e. the mean of all divergences in article \( j \)'s column).
-                </p>
-
-                <!-- MARKOV -->
-
-                <p>
-                    It seems that even when comparing the random transitions (that already favour World Region articles) with the user transitions, there is a consistent bias towards World Region articles. 
-                    This shows that users use certain articles more than the already favourable random transitions would suggest. 
-                    This could have multiple reasons: it could be because users are more comfortable with the articles' topic, but it could also be part of the users' strategy if they noticed that these articles had promising connectivity.
-                </p>
-                <p>We can take two main conclusions from these figures:</p>
-                <ol>
-                    <li>
-                        In the first few steps, World Region articles seem to be chosen by users much more than random. 
-                        The Divergence Value is statistically significantly higher for World Regions than it is for all the other categories.
-                    </li>
-                    <li>
-                        Certain articles in the World Region category have a much higher impact than others. 
-                        Looking at the scales of mean divergence (\( 10^{-1} \) for United States vs. \( 10^{-4} \) for aggregated World Regions), it seems that a few articles contribute much more than others to World Regions being so popular.
-                    </li>
-                </ol>
-                
-            </section>
-                
             <section id="structure">
                 <h3>
                     Impact of the Page Structure
                 </h3>
 
                 <p>
-                    To relax the assumption made for Markov networks that every link in an article is equally likely to be clicked, we can have a look at how link position influences whether links are clicked or not. If we find for instance that only the first few links are generally clicked, the uniform link choice assumption may be false.
-                    It is also interesting to look if users are particularly attracted by special elements in the articles such as the abstract, infoboxes or tables.
+                    First, as a prerequisite for the main analysis, let's have a look at where users click on pages during their games and whether they are particularly attracted by special elements in the articles such as the abstract, infoboxes or tables.
                 </p>
                 <p>
                     To achieve this, we parsed and extracted all links along with other useful information from the HTML file of the articles.
                     The first step is to identify the position of links to a particular category within the article. 
                     "Position" refers to the rank of a link, such as whether it is the first, last, or somewhere in between.
-                    By computing the distribution of these category-specific links across all articles, we can determine if there is a pattern: Do links in certain categories tend to appear more frequently at the beginning, middle, or end of the page, or is the distribution random? Understanding this distribution will help us assess whether users' link choices are influenced by the position of the links on the page.
+                    By computing the distribution of these category-specific links across all articles, we can determine if there is a pattern: Do links in certain categories tend to appear more frequently at the beginning, middle, or end of the page, or is the distribution random? 
+                    Understanding this distribution will help us assess whether users' link choices are influenced by the position of the links on the page .
                 </p>
                 <p>
-                    The next step is to analyze where users are clicking on an article page. We examine the positions of the links that were clicked. If users tend to click on links positioned earlier in the article more frequently than those at the end, this would suggest that link position impacts user behavior.
+                    The next step is to analyze where users are clicking on an article page. We examine the positions of the links that were clicked. If users tend to click on links positioned earlier in the article more frequently than those at the end, this would suggest that link position impacts user behaviour.
                     To perform this analysis, we calculate the typical position of the clicked link for each article in each user path. If a link to the target article appears multiple times, we use the average position of these links as a representative value.
                 </p>
                     <div class="plot-container-wrapper">
@@ -237,7 +149,12 @@
                         </div>
                         <div class="text-container-left">
                             <p>
-                            Our analysis reveals that the median and mean positions of category-specific links are both around 0.5. This suggests that the links are fairly evenly distributed across the page. Furthermore, the difference in link positions between the category "World Regions" and other categories does not show a statistically significant difference based on a t-test. This indicates that there is no bias toward the "World Regions" category. However, we also observe that, while links are distributed randomly, users tend to click on the first links more often than those later in the article (with a median click position of 0.43). This indicates that the position of links influences user behavior, as users are more likely to engage with links that appear earlier on the page.
+                            Our analysis reveals that the median and mean positions of category-specific links are both around \( 0.5 \). 
+                            This suggests that the links are fairly evenly distributed across the page. 
+                            Furthermore, the difference in link positions between the category "World Regions" and other categories does not show a statistically significant difference based on a \( t \)-test. 
+                            This indicates that there is no bias toward the "World Regions" category. 
+                            However, we also observe that, while links are distributed randomly, users tend to click on the first links more often than those later in the article (with a median click position of \( 0.43 \)). 
+                            The position of links seems to influence user behaviour, as users are more likely to engage with links that appear earlier on the page.
                             </p>
                         </div>
                     </div>
@@ -248,59 +165,116 @@
                         <div class="text-container-right">
                             <p>
                             Now, let's investigate in which section of the page the links are located and on which section users click the most. 
-                            As before, we identify the section of the clicked links for each article in each path. If the target article's link appears multiple times in different sections, we consider all occurrences and calculate the mean position as the representative value. We then compare this distribution with the section distribution of all links across all articles and paths.
+                            As before, we identify the section of the clicked links for each article in each path. 
+                            If the target article's link appears multiple times in different sections, we consider all occurrences and calculate the mean position as the representative value. 
+                            We then compare this distribution with the section distribution of all links across all articles and paths.
                             </p>
                             <p>
-                            We see here that users click significantly more on links in the Abstract section (30% of clicks, compared to only 8% of links). They also engage with the Info-boxes (12% of clicks, though they represent only 5% of links) !
+                            We see here that users click significantly more on links in the Abstract section (\( 30% of clicks \), compared to only \( 8% \) of links). 
+                            They also engage with the Info-boxes (\( 12% \) of clicks, though they represent only \( 5% \) of links) !
                             </p>
                         </div>
                     </div>
                     </p>
-
             </section>
-
-            <section id="comfort">
+            
+            <section id="markov">
                 <h3>
-                    Are Users More Comfortable With Wikispeedia Voyage?
+                    Mr. Markov vs. Users
+                </h3>
+            
+                <p>
+                    Before diving into detailed comparisons between user behaviour and random network transitions, it is important to first explore the general structure of transitions between categories. 
+                    This helps us establish a baseline understanding of both the <strong>users' navigation patterns</strong> and the <strong>inherent structure of the Wikispeedia network</strong>.
+                </p>
+                
+                <p>
+                    We create a network <em>(directed graph)</em> to represent transitions between different categories of articles:
+                </p>
+
+                <strong>Nodes:</strong> Each node represents a category of articles, where individual articles are grouped under their primary category.
+                <ul>
+                    <li>The node size reflects the number of articles within a category.</li>
+                </ul>
+
+                <strong>Edges:</strong> Directed edges indicate transitions between categories, whether observed in user paths or inferred from link structure.
+                <ul>
+                    <li>The edge width represents the frequency of transitions between categories. 
+                        Self-loops (transitions within the same category) are excluded to focus on inter-category transitions.</em>
+
+                    </li>
+                </ul>
+
+        
+                <!-- NETWORKS -->
+                <div style="width: 100%; margin: 50px 50px;">
+                    <img src="plots/networks.png" alt="Network structure" style="width:100%; display:block; margin:auto;">
+                </div>
+
+                <p>
+                    There seems to be some <b>inherent bias of the categories</b> just by the structure of the Wikispeedia network. 
+                    Indeed, it seems much more likely to end up in World Regions or Science just because the categories are much bigger and more links lead to it. 
+                    Maybe there is a way of disentangling the user behaviour from the network structure? If we consider that users only click on links randomly (i.e. a random walk in the Wikispeedia Network), we can capture the effect of the network structure. 
+                    Indeed, if taking a random walk always leads you to World Regions, then maybe the users do not actually choose to go there but the network structure just makes it very likely that they end there anyway.
+                </p>
+
+                <p> 
+                    To model this, let's introduce our friend <a href="https://en.wikipedia.org/wiki/Andrey_Markov">Andrey Andreyevich Markov</a>, who is known for his work on <a href="https://en.wikipedia.org/wiki/Markov_chain"><b>Markov Chains</b></a>. 
+                    Using these chains, we can model the transition probabilities from one article A to an article B just by counting the number of links to article B in article A, and dividing by the number of links there are on the page in total. 
+                    While we did find in <a href="#structure"> the section about page structure</a> that links further up in the page may be clicked more, we consider the homogenous click probability hypothesis sufficient for the Markov chain to give valuable insight about the network structure.
+                </p>
+
+                <p>
+                    To get an equivalent transition matrix for users, we can simply count the transitions users actually made at each step. 
+                    To compare the two obtained probability distributions, we will use the <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence"><b>Kullback-Leibler divergence</b></a> (\( KL \) divergence), a type of statistical distance measuring how much a model probability distribution \( Q \) (the random probabilities) differ from a probability distribution \( P \) (our users' transitions). 
+                </p>
+                <p>
+                    Each entry \( P_{ij} \) and \( Q_{ij} \) corresponds to the transition probability from article \( i \) to article \( j \).
+                    The \( KL \) divergence is \( 0 \) when \( P_{ij} \) and \( Q_{ij} \) are exactly the same or when the user transition probability is 0. 
+                    This means that paths that perfectly aligns with the random transitions should have a baseline divergence of 0.
+                    A higher value indicates a stronger divergence: if the divergence is high, users choose a certain transition <b>more than the random transitions in the network would suggest</b>. 
+                    That is, the users actually choose this transition and it is not only due to the network structure.
+                    To get an aggregated effect for a certain target article \( j \), we then simply take the mean divergences corresponding to the transition leading to this article (i.e. the mean of all divergences in article \( j \)'s column).
+                </p>
+
+                <!-- MARKOV -->
+                <div style="width: 80%; margin: 0 auto">
+                    <iframe src="plots/MarkovCategories.html" style="display: block; width: 100%; height: 620px; border: none;" title="Plotly Chart1"></iframe>
+                </div>
+
+                <p>
+                    It seems that even when comparing the random transitions (that already favour World Region articles) with the user transitions, there is a consistent bias towards World Region articles. 
+                    This shows that <b>users use certain articles more than the already favourable random transitions</b> would suggest. 
+                    This could have multiple reasons: it could be because users are more comfortable with the articles' topic, but it could also be part of the users' strategy if they noticed that these articles had promising connectivity.
+                </p>
+
+                <p>
+                    The <b>main takeaway</b> is that in the first few steps, World Region articles seem to be chosen by users much more than random. 
+                    The Divergence Value is statistically significantly higher (no overlap of the confidence intervals) for World Regions than it is for all the other categories.
+                </p>
+            </section>
+            
+
+            <section id="behaviour">
+                <h3>
+                    User Behaviour in Voyages
                 </h3>
 
                 <p> 
-                    As we analyze the impact of user strategies, including their tendency to favor World Region articles, it’s important to explore whether this preference for World Regions correlates with ease of gameplay. 
+                    As we analyze the impact of user strategies, including their tendency to favor World Region articles, it's important to explore whether this preference for World Regions correlates with ease of gameplay. 
                     This section will explore how difficulty metrics differ between Wikispeedia Voyage and non-Voyage paths, as well as between World Regions and non-World Regions categories, to better understand the user experience.
                 </p>
-                    <iframe src="plots/plot_differences.html" style="width: 100%; height: 800px; border: none;" title="Plotly Chart2"></iframe>
+                <div style="width: 70%; margin: auto; height: 800px; border: none;">
+                    <iframe src="plots/plot_differences.html" style="width: 100%; margin: auto; height: 800px; border: none;" title="Plotly Chart2"></iframe>
+                </div>
                 <p>
-                    Wikispeedia Voyage paths are significantly longer in time than non-voyage paths, with more back-clicks (mean backclicks number of 0.54 compared to 0.31) and a slightly higher rating. However, the percentage of completed games is higher for Voyages compared to Non-Voyages. Contrary to what might be expected, the size of the paths (number of steps) remains the same between Voyage and Non-Voyage paths, suggesting a comparable structural complexity despite differing strategies.
-                    While World Regions articles are relatively few in number, they are highly prevalent within the network, often serving as key intermediate steps in paths. Although the Voyage paths seem effective, they tend to be slower and less efficient overall. Is the popularity of these articles solely due to this? Could it be that users intentionally choose these articles? Further investigation is needed to explore this.
+                    Wikispeedia Voyage paths are <b>significantly longer in time</b> than non-voyage paths, with more back-clicks (mean backclicks number of \( 0.54 \) compared to \( 0.31 \)) and a slightly higher rating. 
+                    However, the percentage of completed games is higher for Voyages compared to Non-Voyages. 
+                    Contrary to what might be expected, the size of the paths (number of steps) remains the same between Voyage and Non-Voyage paths, suggesting a comparable structural complexity despite differing strategies.
+                    While World Regions articles are relatively few in number, they are highly prevalent within the network, often serving as key intermediate steps in paths. 
+                    Although the Voyage paths seem effective, they tend to be <b>slower and less efficient overall</b>. 
+                    Is the popularity of these articles solely due to this? Could it be that users intentionally choose these articles? Further investigation is needed to explore this.
                 </p>
-            </section>
-            
-            <section id="shortest">
-                <h3>
-                    Are Voyages Fast?
-                </h3>
-            
-                <p>
-                    Now that we know that users pass through World Regions more often than they would during random exploration, we can evaluate whether this is an effective strategy or if there might be a better approach. One way to address this question is to compare user paths with optimal paths.
-                <p>
-                    Let's define the optimal path as the shortest path that can be taken. This assumption aligns with the game’s goal: to reach the target while minimizing the number of clicks. To analyze the effectiveness of the World Regions strategy, we can examine whether users’ choice of categories aligns with the categories in the optimal paths. 
-                    This involves computing the optimal path by constructing a directed graph where edges represent connections between articles. Using this graph, we calculate all the shortest paths for each source-target pair present in users’ games. Interestingly, some pairs have a surprisingly large number of possible optimal paths, up to 599!
-                <p>
-                    The figure here shows the normalized percentage of times each category is visited at each step. For simplicity, only the first 10 steps of user paths are displayed, while optimal paths are shown in full. There is a steep increase for certain categories at the 5th or 6th step, reflecting the fact that fewer paths of this length exist, thus representing fewer categories.
-                <p>
-                    <!-- OPTIMAL PATHS PLOT -->
-                <iframe src="plots/optimal.html" style="width: 100%; height: 600px; border: none;" title="Plotly ChartO6"></iframe>
-                <p>   
-                    We clearly see that in the early steps, World Regions appears most frequently, with its presence steadily decreasing over subsequent steps, aligning with other categories. This trend holds for both user and optimal paths, suggesting that using World Regions early in the path is generally a good strategy.
-                <p>
-                    The plot on the right compares the percentage differences, averaged across all steps. Surprisingly, users pass through World Regions less frequently than optimal paths suggest. This finding is surprising, as we intuitively expected humans to rely more on Wikispeedia Voyages than necessary. However, the opposite is true. Users might benefit from using this category more, maybe because, as shown earlier, it is highly interconnected with other categories.
-                </p>
-            </section>
-            
-            <section id="semantic">
-                <h3>
-                    Semantic Detour with Voyages
-                </h3>
 
                 <p>
                     We can get an idea of how similar one article is to another by comparing the cosine similarity of the article name embeddings. 
@@ -319,7 +293,9 @@
                 </p>
 
                 <!-- SIMILARITY PLOT -->
-                <img src="plots/similarity.png" alt="similarity" style="width:80%; display:block; margin:auto;">
+                <div style="margin: 20px 0px">
+                    <img src="plots/similarity.png" alt="similarity" style="width:80%; display:block; margin:auto;">
+                </div>
 
                 <p>
                     There is a clear trend for both types of embeddings: in the first few clicks, the articles chosen have a low similarity to the previous one. 
@@ -332,6 +308,55 @@
                     Generally, both embeddings agree that the similarity along paths is generally lower for Voyages. 
                     This could indeed show that there is a stronger detour or zoom-out behaviour from users in Voyages, as the articles visited are on average less similar to one-another.
                 </p>
+            </section>
+            
+            <section id="shortest">
+                <h3>
+                    Are Voyages Fast?
+                </h3>
+            
+                <p>
+                    Now that we know that users pass through World Regions more often than they would during random exploration, we can evaluate whether this is an effective strategy or if there might be a better approach. One way to address this question is to compare user paths with optimal paths.
+                <p>
+                    Let's define the optimal path as the shortest path that can be taken. This assumption aligns with the game's goal: to reach the target while minimizing the number of clicks. To analyze the effectiveness of the World Regions strategy, we can examine whether users’ choice of categories aligns with the categories in the optimal paths. 
+                    This involves computing the optimal path by constructing a directed graph where edges represent connections between articles. Using this graph, we calculate all the shortest paths for each source-target pair present in users’ games. Interestingly, some pairs have a surprisingly large number of possible optimal paths, up to 599!
+                <p>
+                    The figure here shows the normalized percentage of times each category is visited at each step. For simplicity, only the first 10 steps of user paths are displayed, while optimal paths are shown in full. There is a steep increase for certain categories at the 5th or 6th step, reflecting the fact that fewer paths of this length exist, thus representing fewer categories.
+                <p>
+                    <!-- OPTIMAL PATHS PLOT -->
+                <iframe src="plots/optimal.html" style="width: 100%; height: 600px; border: none;" title="Plotly ChartO6"></iframe>
+                <p>   
+                    We clearly see that in the early steps, World Regions appears most frequently, with its presence steadily decreasing over subsequent steps, aligning with other categories. This trend holds for both user and optimal paths, suggesting that using World Regions early in the path is generally a good strategy.
+                <p>
+                    The plot on the right compares the percentage differences, averaged across all steps. Surprisingly, users pass through World Regions less frequently than optimal paths suggest. This finding is surprising, as we intuitively expected humans to rely more on Wikispeedia Voyages than necessary. However, the opposite is true. Users might benefit from using this category more, maybe because, as shown earlier, it is highly interconnected with other categories.
+                </p>
+            </section>
+            
+            <section id="relax">
+                <h3>
+                    But Wait?
+                </h3>
+
+                We started with the hypothesis that all of the World Categories contributes. 
+
+                <!-- MARKOV -->
+                <div style="width: 80%; margin: 0 auto">
+                    <iframe src="plots/MarkovArticles.html" style="width: 100%; height: 620px; border: none;" title="Plotly Chart1"></iframe>
+                </div>
+
+                <p>
+                    First, let's see whether the obtained transition matrix makes sense with what we have observed previously. 
+                    Let's have a look at which articles we seem to converge naturally to when taking a random walk in the Wikispeedia network.
+
+                    The transition matrix's \( P \) left eigenvector with eigenvalue \( 1 \) (i.e. \( x \) such that \( xP=x \)) whose elements sum to \( 1 \) is called the steady-state of the system. 
+                    After \( infty \) iterations, starting from whatever article, the probability distribution of the end article is given by \( x \). 
+                    The steady-state proves that the article to most likely randomly arrive at in the network is United States (with \( 1.35\% \) probability). 
+                    , followed mainly by other countries. It looks like countries are naturally favoured by the network structure. This is interesting as it shows that there is definitely a bias towards World Regions (particularly large countries) in Wikispeedia articles: they have more links and are more interconnected than other articles. This is a first hint that World Regions are intertwined with the human mind, as humans wrote the articles in questions and made them particularly rich and link-dense.
+
+                    Certain articles in the World Region category have a much higher impact than others. 
+                        Looking at the scales of mean divergence (\( 10^{-1} \) for United States vs. \( 10^{-4} \) for aggregated World Regions), it seems that a few articles contribute much more than others to World Regions being so popular.
+                </p>
+                
             </section>
         </section>
     </div>
@@ -346,7 +371,7 @@
         
         <ol>
             <li>World Regions articles are overrepresented and highly connected compared to other categories,
-                but this bias alone doesn't explain user behavior: they navigate these articles more often than random algorithms predict.
+                but this bias alone doesn't explain user behaviour: they navigate these articles more often than random algorithms predict.
                 The page structure doesn't favor Voyages, and a few key articles significantly drive World Regions' popularity.
             </li>
             <li>Users achieve a higher success rate in reaching their targets when employing Wikispeedia Voyages,

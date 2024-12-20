@@ -134,12 +134,12 @@
                 </h3>
 
                 <p>
-                    First, as a prerequisite for the main analysis, let's have a look at where users click on pages during their games and whether they are particularly attracted by special elements in the articles such as the abstract, infoboxes or tables.
+                    First, as a prerequisite for the main analysis, let's have a look at <b>where users click on pages</b> during their games and whether they are particularly attracted by special elements in the articles such as the abstract, info-boxes or tables.
                 </p>
                 <p>
                     To achieve this, we parsed and extracted all links along with other useful information from the HTML file of the articles.
                     The first step is to identify the position of links to a particular category within the article (in purple in the following plot). 
-                    "Position" refers to the rank of a link, such as whether it is the first, last, or somewhere in between.
+                    "Position" refers to the <em>rank of a link</em>, such as whether it is the first, last, or somewhere in between.
                     By computing the distribution of these category-specific links across all articles, we can assess whether users' link choices are influenced by the position of the links on the page.
                     The next step is to analyze where users are clicking on an article page. We calculate the typical position of the clicked link for each article in each user path (in blue). 
                 </p>
@@ -152,9 +152,11 @@
                             Our analysis reveals that the median and mean positions of category-specific links are both around \( 0.5 \). 
                             This suggests that the links are fairly evenly distributed across the page. 
                             Furthermore, the difference in link positions between the category "World Regions" and other categories does not show a statistically significant difference based on a \( t \)-test. 
+                            </p>
+                            <p>
                             This indicates that there is no bias toward the "World Regions" category. 
                             However, we also observe that, while links are distributed randomly, users tend to click on the first links more often than those later in the article (with a median click position of \( 0.43 \)). 
-                            The position of links seems to influence user behaviour, as users are more likely to engage with links that appear earlier on the page.
+                            The position of links seems to influence user behaviour, as users are slightly more likely to engage with links that appear earlier on the page.
                             </p>
                         </div>
                     </div>
@@ -164,12 +166,12 @@
                         </div>
                         <div class="text-container-right">
                             <p>
-                            Now, let's investigate in which section of the page the links are located and on which section users click the most. 
+                            Now, let's investigate in which section of the page the links are located and on <b>which section</b> users click the most. 
                             As before, we identify the section of the clicked links for each article in each path. We then compare this distribution with the section distribution of all links across all articles and paths.
                             </p>
                             <p>
-                            We see here that users click significantly more on links in the Abstract section (\( 30% of clicks \), compared to only \( 8% \) of links). 
-                            They also engage with the Info-boxes (\( 12% \) of clicks, though they represent only \( 5% \) of links) !
+                            We see here that users click significantly more on links in the Abstract section (\( 30\% \) of clicks, compared to only \( 8\% \) of links). 
+                            They also engage with the Info-boxes (\( 12\% \) of clicks, though they represent only \( 5\% \) of links) !
                             </p>
                         </div>
                     </div>
@@ -216,14 +218,15 @@
                     This is a first hint that World Regions are intertwined with the human mind, as humans wrote the articles in questions and made them particularly rich and link-dense.
                 </p>
                 <p>
-                    Maybe there is a way of disentangling the user behaviour from the network structure? If we consider that users only click on links randomly (i.e. a random walk in the Wikispeedia Network), we can capture the effect of the network structure. 
+                    We also see that World Regions are central for users, but maybe there is a way of <b>disentangling the user behaviour</b> from the network structure? 
+                    If we consider that users only click on links randomly (i.e. a random walk in the Wikispeedia Network), we can capture the effect of the network structure. 
                     Indeed, if taking a random walk always leads you to World Regions, then maybe the users do not actually choose to go there but the network structure just makes it very likely that they end there anyway.
                 </p>
 
                 <p> 
                     To model this, let's introduce our friend <a href="https://en.wikipedia.org/wiki/Andrey_Markov">Andrey Andreyevich Markov</a>, who is known for his work on <a href="https://en.wikipedia.org/wiki/Markov_chain"><b>Markov Chains</b></a>. 
                     Using these chains, we can model the transition probabilities from one article A to an article B just by counting the number of links to article B in article A, and dividing by the number of links there are on the page in total. 
-                    While we did find in <a href="#structure"> the section about page structure</a> that links further up in the page may be clicked more, the deviation (only \( 7\% \) above the middle) is small enough to consider the homogenous click probability hypothesis sufficient for the Markov chain to give valuable insight about the network structure.
+                    We found in <a href="#structure"> the section about page structure</a> that links further up in the page may be clicked more, but the deviation (only \( 7\% \) above the middle) is small enough. Therefore, we consider the homogenous click probability hypothesis sufficient for the Markov chain to give valuable insight about the network structure.
                 </p>
 
                 <p>
@@ -232,11 +235,13 @@
                 </p>
                 <p>
                     Each entry \( P_{ij} \) and \( Q_{ij} \) corresponds to the transition probability from article \( i \) to article \( j \).
-                    The \( KL \) divergence is \( 0 \) when \( P_{ij} \) and \( Q_{ij} \) are exactly the same or when the user transition probability is 0. 
-                    This means that paths that perfectly aligns with the random transitions should have a baseline divergence of 0.
-                    A higher value indicates a stronger divergence: if the divergence is high, users choose a certain transition <b>more than the random transitions in the network would suggest</b>. 
+                    The \( KL \) divergence is \( 0 \) when \( P_{ij} \) and \( Q_{ij} \) are exactly the same or when the user transition probability is \( 0 \). 
+                    This means that paths that perfectly aligns with the random transitions should have a baseline divergence of \( 0 \).
+                </p>
+                <p>
+                    A higher value indicates a stronger divergence: if the <b>divergence is high</b>, users choose a certain transition more than the random transitions in the network would suggest. 
                     That is, the users actually choose this transition and it is not only due to the network structure.
-                    To get an aggregated effect for a certain target article \( j \), we then simply take the mean divergences corresponding to the transition leading to this article (i.e. the mean of all divergences in article \( j \)'s column).
+                    To get an aggregated effect for a certain target article \( j \), we then simply take the mean divergences corresponding to the transition leading to this article (the mean of all divergences in article \( j \)'s column).
                 </p>
 
                 <!-- MARKOV -->
@@ -245,7 +250,7 @@
                 </div>
 
                 <p>
-                    It seems that even when comparing the random transitions (that already favour World Region articles) with the user transitions, there is a consistent bias towards World Region articles. 
+                    It seems that even when comparing the random transitions (that already favour World Region articles) with the user transitions, there is a consistent bias in the first steps towards World Region articles. 
                     This shows that <b>users use certain articles more than the already favourable random transitions</b> would suggest. 
                     This could have multiple reasons: it could be because users are more comfortable with the articles' topic, but it could also be part of the users' strategy if they noticed that these articles had promising connectivity.
                 </p>
@@ -263,15 +268,16 @@
                 </h3>
 
                 <p> 
-                    As we analyze the impact of user strategies, including their tendency to favor World Region articles, it's important to explore whether this preference for World Regions correlates with ease of gameplay. 
+                    As we analyze the impact of user strategies, including their tendency to favor World Region articles, it's important to explore whether this preference for World Regions correlates with <b>ease of gameplay</b>. 
                     This section will explore how difficulty metrics differ between Wikispeedia Voyage and non-Voyage paths, as well as between World Regions and non-World Regions categories, to better understand the user experience.
                 </p>
-                <div style="width: 70%; margin: auto; height: 800px; border: none;">
+                <div style="width: 80%; margin: auto; height: 800px; border: none;">
                     <iframe src="plots/plot_differences.html" style="width: 100%; margin: auto; height: 800px; border: none;" title="Plotly Chart2"></iframe>
                 </div>
                 <p>
-                    Wikispeedia Voyage paths are significantly longer in time than non-voyage paths, with more back-clicks (mean backclicks number of \( 0.54 \) compared to \( 0.31 \)).There is a slightly lower number of ratings of 1 (on a scale from 1 to 5, where 1 indicates ease and 5 indicates difficulty), suggesting that the task is perceived as a bit more difficult. Contrary to what might be expected, the size of the paths (number of steps) remains the same between Voyage and Non-Voyage paths.
-                    Moreover, the completion rate for Voyage paths is higher, indicating a level of comfort or strategic advantage.
+                    Wikispeedia Voyage paths are significantly longer in time than other paths, with more back-clicks (mean backclicks number of \( 0.54 \) compared to \( 0.31 \)).
+                    There is a slightly lower number of ratings of 1 (on a scale from 1 to 5, where 1 indicates ease and 5 indicates difficulty), suggesting that the task is perceived as a bit more difficult. Contrary to what might be expected, the size of the paths (number of steps) remains the same between Voyage and Non-Voyage paths.
+                    Moreover, the <b>completion rate for Voyage paths is higher</b>, indicating a level of comfort or strategic advantage.
                 </p>
 
                 <p>
@@ -283,9 +289,9 @@
                 <p>
                     The similarities are computed for all paths and all steps along each path. 
                     We focus here on the first 10 steps of all paths and take the mean over each step in all paths. 
-                    Because the paths have different lenghts, the mean of e.g. position \( L \) is taken over all paths that have at least \( L \) steps. 
-                    Furthermore, we compute the interval as \( 1.96 \) times the standard error, which we compute in the same fashion as the mean for each path position. 
-                    We also min-max normalise the scale to \( [0, 1] \), as the similarity scores for the two models are in a different, somewhat arbitrary, range. 
+                    Because the paths have different lenghts, the mean of e.g. a position \( L \) is taken over all paths that have at least \( L \) steps. 
+                    Furthermore, we compute the \( 95\% \) confidence interval as \( 1.96 \) times the standard error, which we compute in the same fashion as the mean for each path position. 
+                    We also min-max normalise the scale to \( [0, 1] \), as the similarity scores for the two models are in a different, somewhat arbitrary range. 
                 </p>
 
                 <!-- SIMILARITY PLOT -->
@@ -295,14 +301,14 @@
 
                 <p>
                     There is a clear trend for both types of embeddings: in the first few clicks, the articles chosen have a low similarity to the previous one. 
-                    This can be interpreted as leaving the original category, because article names in different categories are likely to be less similar. 
+                    This can be interpreted as <b>leaving the original category</b>, because article names in different categories are likely to be less similar. 
                     After this, the similarity for the next clicks stabilises, with relatively small fluctuations.
                 </p>
 
                 <p>
                     There is also a statistically significant difference between Voyages and Other paths. 
                     Generally, both embeddings agree that the similarity along paths is generally lower for Voyages. 
-                    This could indeed show that there is a stronger detour and zoom-out behaviour from users in Voyages, as the articles visited are on average less similar to one-another.
+                    This could indeed show that there is a <b>stronger detour and zoom-out behaviour</b> from users in Voyages, as the articles visited are on average less similar to one-another.
                     This could also explain the longer paths and more back-clicks: if users more often radically change to less similar articles, they might make more mistakes and end up taking longer.
                 </p>
             </section>
@@ -314,19 +320,24 @@
                 </h3>
             
                 <p>
-                    Since we learned that users pass through World Regions more often than they would during random exploration, we can evaluate whether this is an effective strategy or if there might be a better approach. One way to address this question is to compare user paths with optimal paths.
+                    Since we learned that users pass through World Regions more often than they would during random exploration, we can evaluate whether this is an effective strategy or if there might be a better approach. One way to address this question is to <b>compare user paths with optimal paths</b>.
                 <p>
-                    Let's define the optimal path as the shortest path that can be taken. This assumption aligns with the game's goal: to reach the target while minimizing the number of clicks. To analyze the effectiveness of the World Regions strategy, we can examine whether users' choice of categories aligns with the categories in the optimal paths. 
+                    Let's define the optimal path as the <em>algorithmic shortest path</em> that can be taken. This assumption aligns with the game's goal: to reach the target while minimizing the number of clicks. 
+                    To analyze the effectiveness of the World Regions strategy, we can examine whether users' choice of categories <b>aligns with the categories in the optimal paths</b>. 
                     This involves computing the optimal path by constructing a directed graph where edges represent connections between articles. Using this graph, we calculate all the shortest paths for each source-target pair present in users' games. Interestingly, some pairs have a surprisingly large number of possible optimal paths, up to 599!
                 <p>
-                    The figure below shows the normalized percentage of times each category is visited at each step. For simplicity, only the first 10 steps of user paths are displayed, while optimal paths are shown in full. There is a steep increase for certain categories at the 5th or 6th step, reflecting the fact that fewer paths of this length exist, thus representing fewer categories.
+                    The figure below shows the normalized percentage of times each category is visited at each step. For simplicity, only the first 10 steps of user paths are displayed, while optimal paths are shown in full. 
+                    Note that for optimal paths there is a steep increase for certain categories at the 5th or 6th step, reflecting the fact that fewer paths of this length exist, thus representing a larger percentage over all categories.
                 <p>
                     <!-- OPTIMAL PATHS PLOT -->
                 <iframe src="plots/optimal.html" style="width: 100%; height: 600px; border: none;" title="Plotly ChartO6"></iframe>
                 <p>   
-                    We clearly see that in the early steps, World Regions appears most frequently, with its presence steadily decreasing over subsequent steps, aligning with other categories. This trend holds for both user and optimal paths, suggesting that using World Regions early in the path is generally a good strategy.
+                    We clearly see that in the early steps, <b>World Regions appears most frequently</b>, with its presence steadily decreasing over subsequent steps, aligning with other categories. 
+                    This trend holds for both user and optimal paths, suggesting that using World Regions early in the path is <b>generally a good strategy</b>.
                 <p>
-                    The plot on the right compares the percentage differences, averaged across all steps. Surprisingly, users pass through World Regions less frequently than optimal paths suggest. This finding is surprising, as we intuitively expected humans to rely more on Wikispeedia Voyages than necessary. However, the opposite is true. Users might benefit from using this category more, maybe because, as shown earlier, it is highly interconnected with other categories.
+                    The plot on the right compares the percentage differences, averaged across all steps. Surprisingly, users pass through World Regions <b>less frequently than optimal paths suggest</b>. 
+                    This finding is surprising, as we intuitively expected humans to rely more on Wikispeedia Voyages than necessary. However, the opposite is true. 
+                    Users might benefit from using this category more, maybe because, as shown earlier, it is highly interconnected with other categories.
                 </p>
             </section>
         
@@ -338,14 +349,14 @@
 
                 <p>
                     Our initial hypothesis naively generalises that <em>any</em> article related to countries, places or cities can make Voyages.
-                    We then validated our assumption observed that there were indeed significant changes between Voyages and other paths.
-                    <b>But Wait?</b> What if only a subset of well know large countries really contribute to the observations made about Voyages?
+                    We then validated our assumption by observing that there were indeed significant changes between Voyages and other paths.
+                    <b>But Wait?</b> What if only a subset of well known large countries really contribute to the observations made about Voyages?
                 </p>
                 
                 <p> 
                     We can ask our friend Andrey Andreyevich Markov for advice again. 
-                    He informed us that the normalised left eigenvector of the transition matrix \( P \) with eigenvalue \( 1 \) is called the steady-state of the system. 
-                    This steady-state gives the probability distribution of which article to end up taking infinitely many steps in the random network. For the 8 first values we get:
+                    He informed us that the normalised left eigenvector of the transition matrix \( Q \) with eigenvalue \( 1 \) is called the <b>steady-state (SS)</b> of the system. 
+                    This steady-state gives the probability distribution of which article you end up in when taking infinitely many steps in the random network. For the 8 first values we get:
                 </p>
 
                 <div style="width: 100%; margin: auto; margin-bottom: 30px;">
@@ -365,24 +376,24 @@
                         </thead>
                         <tbody>
                             <tr style="background-color: #ffffff;">
-                                <td style="border: 1px solid #ddd; padding: 4px;">Steady State Proportion</td>
-                                <td style="border: 1px solid #ddd; padding: 4px;">0.013515</td>
-                                <td style="border: 1px solid #ddd; padding: 4px;">0.010126</td>
-                                <td style="border: 1px solid #ddd; padding: 4px;">0.009922</td>
-                                <td style="border: 1px solid #ddd; padding: 4px;">0.007502</td>
-                                <td style="border: 1px solid #ddd; padding: 4px;">0.007472</td>
-                                <td style="border: 1px solid #ddd; padding: 4px;">0.006910</td>
-                                <td style="border: 1px solid #ddd; padding: 4px;">0.006109</td>
-                                <td style="border: 1px solid #ddd; padding: 4px;">0.005818</td>
+                                <td style="border: 1px solid #ddd; padding: 4px;">SS Proportion</td>
+                                <td style="border: 1px solid #ddd; padding: 4px;">1.35%</td>
+                                <td style="border: 1px solid #ddd; padding: 4px;">1.01%</td>
+                                <td style="border: 1px solid #ddd; padding: 4px;">0.99%</td>
+                                <td style="border: 1px solid #ddd; padding: 4px;">0.75%</td>
+                                <td style="border: 1px solid #ddd; padding: 4px;">0.74%</td>
+                                <td style="border: 1px solid #ddd; padding: 4px;">0.69%</td>
+                                <td style="border: 1px solid #ddd; padding: 4px;">0.61%</td>
+                                <td style="border: 1px solid #ddd; padding: 4px;">0.58%</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
                 <p>
-                    Indeed, the most likely randomly arrive at in the network is United States (with \( 1.35\% \) probability), followed mainly by other World Regions. 
-                    Most of the World Region articles in fact have a steady state probability that is almost \( 0 \). That means that only a subset of the World Region articles actually contribute to the effect of Wikispeedia Voyages that we observed.
-                    Indeed, while places such as "Suburbs of Johannesburg" do respect our definition of Voyages and World Regions, they are not <em>really</em> what we pictured in the first place.
+                    Indeed, the most likely article to randomly arrive at in the network is United States (with \( 1.35\% \) probability), followed mainly by other World Regions. 
+                    However, most of the World Region articles in fact have a steady state probability that is <b>almost</b> \( 0 \). That means that only a subset of the World Region articles actually contribute to the effect of Wikispeedia Voyages that we observed.
+                    Indeed, while places such as "Suburbs of Johannesburg" do respect our definition of Voyages and World Regions, they are not <em>really</em> what we pictured and observed in the first place.
                     Looking at the user click divergence for single articles and not entire categories (see the first plot about \( KL \) divergence) gives the following figure.
                 </p>
             
@@ -394,8 +405,10 @@
                 <p>
                     Certain articles in the World Region category have a much <b>higher impact than others</b>. 
                     Looking at the scales of mean divergence (\( 10^{-1} \) for United States vs. \( 10^{-4} \) for aggregated World Regions), it seems that a few articles contribute much more than others to World Regions being so popular.
-                    While all our previous conclusions remain valid, it is important to note that the conclusions would probably be more extreme when focussing only on a subset of hubs within World Regions.
-                    There are a lot of articles in World Regions that are hubs that are central and used often, but certainly not all of the articles such as hypothesised initially.
+                </p> 
+                <p> 
+                    While all our previous conclusions remain valid, it is important to note that the conclusions would probably be <b>more extreme</b> when focusing only on a subset of hubs within World Regions.
+                    There are a lot of articles in World Regions that are hubs that are central and used often, but <em>certainly not all of the articles</em> such as hypothesised initially.
                 </p>
             </section>
         </section>
@@ -411,15 +424,15 @@
         </h2>
         
         <ol>
-            <li>World Regions articles are overrepresented and highly connected compared to other categories,
-                but this bias alone doesn't explain user behavior: they navigate through these articles more often than random algorithms predict.
-                Moreover, the page structure doesn't favor Voyages. </li>
+            <li>World Regions articles are numerous and highly connected compared to other categories,
+                but this bias alone doesn't explain user behavior: they navigate through these articles more frequently than random walks in the network could suggest.
+                Moreover, the page structure does not favor Voyages. </li>
             <li>Users achieve a higher success rate in reaching their targets when employing Wikispeedia Voyages,
                 even if these paths are often less straightforward (slower and more back-clicks).
-                The semantic similarity along paths is generally lower for Voyages.
-                This indicates that users zoom out to explore broader topics using World Regions.</li>
+                The semantic similarity along paths is generally lower for Voyages, but exhibits a general zoom-out behaviour to explore broader topics in the first steps.
+            </li>
             <li>Optimal paths leverage World Regions more often than users, suggesting that Voyages are effective strategies that players might underuse. </li>
-            <li>A few key articles play a major role in driving the popularity of World Regions, indicating that focusing on a smaller subset of prominent World Regions could be more effective for Voyages.
+            <li>A few key articles play a major role in driving the popularity of World Regions, indicating that focusing on a smaller subset of prominent World Regions could be more relevant to properly characterise Voyages.
             </li>
         </ol>
 

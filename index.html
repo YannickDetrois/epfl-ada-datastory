@@ -53,7 +53,7 @@
             Introduction
         </h2>
         <p>
-            While playing our first few Wikispeedia games <a href="https://dlab.epfl.ch/wikispeedia/play/" target="_blank" rel="noopener noreferrer"><em>[play here]</em></a>, we quickly noticed that we tend to adopt a strategy looking for articles about countries and world regions to reach the goal, sometimes regardless of the article we start in or need to reach.
+            While playing our first few Wikispeedia games <a href="https://dlab.epfl.ch/wikispeedia/play/" target="_blank" rel="noopener noreferrer"><em>[play here]</em></a>, we quickly noticed that we tend to adopt a strategy looking for articles about world regions to reach the goal, sometimes regardless of the article we start in or need to reach.
             This made us wonder whether our strategy - which we call <b>Wikispeedia Voyages</b> - is a good strategy, or at least popular with other Wikispeedia players too.
         </p>
         
@@ -61,7 +61,7 @@
         <p>
             The goal in the Wikispeedia game is to reach a target Wikipedia article from a start article with as little steps and as quickly as possible, just by clicking on links to the next page. 
             The dataset <a href="https://snap.stanford.edu/data/wikispeedia.html" target="_blank" rel="noopener noreferrer">[<em>link</em>]</a> collects both information about players' behaviour and the network structure of Wikipedia articles, 
-            allowing to analyse Voyages under multiple perspectives. Our aim is to understand to what extent the network structure, analyzed through Markov Chains,
+            allowing to analyse Voyages under multiple perspectives. Our aim is to understand to what extent the article and network structure, analyzed through Markov Chains,
             influences gameplay, while also examining user behaviour in Voyages compared to other strategies, their alignment with shortest paths, and insights from semantic analysis.
         </p>
     </section>  
@@ -72,7 +72,7 @@
         </h2>
         <ol>
             <li>Does the Wikispeedia article and network structure intrinsically favour Wikispeedia Voyages?</li>
-            <li>Are users faster or more efficient when taking Wikispeedia Voyages, or do they take semantic detours along the way?</li>
+            <li>Are users faster or more efficient when taking Wikispeedia Voyages, or do they take semantic detours that could complicate the path?</li>
             <li>How does the strategy compare with the algorithmic shortest paths?</li>
         </ol>
     </aside>
@@ -417,12 +417,13 @@
         <ol>
             <li>World Regions articles are overrepresented and highly connected compared to other categories,
                 but this bias alone doesn't explain user behavior: they navigate through these articles more often than random algorithms predict.
-                The page structure doesn't favor Voyages, and a few key articles significantly drive World Regions' popularity.</li>
+                Moreover, the page structure doesn't favor Voyages. </li>
             <li>Users achieve a higher success rate in reaching their targets when employing Wikispeedia Voyages,
                 even if these paths are often less straightforward (slower and more back-clicks).
                 The semantic similarity along paths is generally lower for Voyages.
                 This indicates that users zoom out to explore broader topics using World Regions.</li>
-            <li>Optimal paths leverage World Regions more often than users, suggesting that Voyages are effective strategies that players might underuse. 
+            <li>Optimal paths leverage World Regions more often than users, suggesting that Voyages are effective strategies that players might underuse. </li>
+            <li>A few key articles play a major role in driving the popularity of World Regions, indicating that focusing on a smaller subset of prominent World Regions could be more effective for Voyages.
             </li>
         </ol>
 

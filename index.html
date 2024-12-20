@@ -70,8 +70,8 @@
             Research Questions
         </h2>
         <ol>
-            <li>Does the Wikispeedia article network structure intrinsically favour Wikispeedia Voyages?</li>
-            <li>Are users more comfortable, fast or efficient with world regions than other topics?</li>
+            <li>Does the Wikispeedia article and network structure intrinsically favour Wikispeedia Voyages?</li>
+            <li>Are users faster or more efficient when taking Wikispeedia Voyages, or do they take semantic detours along the way?</li>
             <li>How does the strategy compare with the algorithmic shortest paths?</li>
         </ol>
     </aside>
@@ -134,7 +134,7 @@
                 </p>
                 <p>
                     To achieve this, we parsed and extracted all links along with other useful information from the HTML file of the articles.
-                    The first step is to identify the position of links to a particular category within the article. 
+                    The first step is to identify the position of links to a particular category within the article (in purple in the following plot). 
                     "Position" refers to the rank of a link, such as whether it is the first, last, or somewhere in between.
                     By computing the distribution of these category-specific links across all articles, we can determine if there is a pattern: Do links in certain categories tend to appear more frequently at the beginning, middle, or end of the page, or is the distribution random? 
                     Understanding this distribution will help us assess whether users' link choices are influenced by the position of the links on the page .
@@ -165,9 +165,7 @@
                         <div class="text-container-right">
                             <p>
                             Now, let's investigate in which section of the page the links are located and on which section users click the most. 
-                            As before, we identify the section of the clicked links for each article in each path. 
-                            If the target article's link appears multiple times in different sections, we consider all occurrences and calculate the mean position as the representative value. 
-                            We then compare this distribution with the section distribution of all links across all articles and paths.
+                            As before, we identify the section of the clicked links for each article in each path. We then compare this distribution with the section distribution of all links across all articles and paths.
                             </p>
                             <p>
                             We see here that users click significantly more on links in the Abstract section (\( 30% of clicks \), compared to only \( 8% \) of links). 
@@ -268,13 +266,37 @@
                     <iframe src="plots/plot_differences.html" style="width: 100%; margin: auto; height: 800px; border: none;" title="Plotly Chart2"></iframe>
                 </div>
                 <p>
-                    Wikispeedia Voyage paths are <b>significantly longer in time</b> than non-voyage paths, with more back-clicks (mean backclicks number of \( 0.54 \) compared to \( 0.31 \)) and a slightly higher rating. 
-                    However, the percentage of completed games is higher for Voyages compared to Non-Voyages. 
-                    Contrary to what might be expected, the size of the paths (number of steps) remains the same between Voyage and Non-Voyage paths, suggesting a comparable structural complexity despite differing strategies.
-                    While World Regions articles are relatively few in number, they are highly prevalent within the network, often serving as key intermediate steps in paths. 
-                    Although the Voyage paths seem effective, they tend to be <b>slower and less efficient overall</b>. 
-                    Is the popularity of these articles solely due to this? Could it be that users intentionally choose these articles? Further investigation is needed to explore this.
+                    Wikispeedia Voyage paths are significantly longer in time than non-voyage paths, with more back-clicks (mean backclicks number of 0.54 compared to 0.31).There is a slightly lower number of ratings of 1 (on a scale from 1 to 5, where 1 indicates ease and 5 indicates difficulty), suggesting that the task is perceived as a bit more difficult. Contrary to what might be expected, the size of the paths (number of steps) remains the same between Voyage and Non-Voyage paths.
+                    Moreover, the completion rate for Voyage paths is higher, indicating a level of comfort or strategic advantage.
                 </p>
+            </section>
+            
+            <section id="shortest">
+                <h3>
+                    Are Voyages Fast?
+                </h3>
+            
+                <p>
+                    Since we learned that users pass through World Regions more often than they would during random exploration, we can evaluate whether this is an effective strategy or if there might be a better approach. One way to address this question is to compare user paths with optimal paths.
+                <p>
+                    Let's define the optimal path as the shortest path that can be taken. This assumption aligns with the game’s goal: to reach the target while minimizing the number of clicks. To analyze the effectiveness of the World Regions strategy, we can examine whether users’ choice of categories aligns with the categories in the optimal paths. 
+                    This involves computing the optimal path by constructing a directed graph where edges represent connections between articles. Using this graph, we calculate all the shortest paths for each source-target pair present in users’ games. Interestingly, some pairs have a surprisingly large number of possible optimal paths, up to 599!
+                <p>
+                    The figure here shows the normalized percentage of times each category is visited at each step. For simplicity, only the first 10 steps of user paths are displayed, while optimal paths are shown in full. There is a steep increase for certain categories at the 5th or 6th step, reflecting the fact that fewer paths of this length exist, thus representing fewer categories.
+                <p>
+                    <!-- OPTIMAL PATHS PLOT -->
+                <iframe src="plots/optimal.html" style="width: 100%; height: 600px; border: none;" title="Plotly ChartO6"></iframe>
+                <p>   
+                    We clearly see that in the early steps, World Regions appears most frequently, with its presence steadily decreasing over subsequent steps, aligning with other categories. This trend holds for both user and optimal paths, suggesting that using World Regions early in the path is generally a good strategy.
+                <p>
+                    The plot on the right compares the percentage differences, averaged across all steps. Surprisingly, users pass through World Regions less frequently than optimal paths suggest. This finding is surprising, as we intuitively expected humans to rely more on Wikispeedia Voyages than necessary. However, the opposite is true. Users might benefit from using this category more, maybe because, as shown earlier, it is highly interconnected with other categories.
+                </p>
+            </section>
+            
+            <section id="semantic">
+                <h3>
+                    Semantic Detour with Voyages
+                </h3>
 
                 <p>
                     We can get an idea of how similar one article is to another by comparing the cosine similarity of the article name embeddings. 
@@ -371,12 +393,12 @@
         
         <ol>
             <li>World Regions articles are overrepresented and highly connected compared to other categories,
-                but this bias alone doesn't explain user behaviour: they navigate these articles more often than random algorithms predict.
-                The page structure doesn't favor Voyages, and a few key articles significantly drive World Regions' popularity.
-            </li>
+                but this bias alone doesn't explain user behavior: they navigate through these articles more often than random algorithms predict.
+                The page structure doesn't favor Voyages, and a few key articles significantly drive World Regions' popularity.</li>
             <li>Users achieve a higher success rate in reaching their targets when employing Wikispeedia Voyages,
                 even if these paths are often less straightforward (slower and more back-clicks).
-                The semantic similarity along paths is generally lower for Voyages.</li>
+                The semantic similarity along paths is generally lower for Voyages.
+                This indicates that users zoom out to explore broader topics using World Regions.</li>
             <li>Optimal paths leverage World Regions more often than users, suggesting that Voyages are effective strategies that players might underuse. 
             </li>
         </ol>

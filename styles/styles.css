@@ -563,31 +563,3 @@ section {
     /* padding-top: 75%; */
   }
 }
-
-.sankey-left {
-  flex: 1.5;
-  order: 1;
-  z-index: 1;
-}
-
-.sankey-right {
-  flex: 1.5;
-  margin-right: 2%;
-  order: 2;
-  z-index: 2;
-  margin-left: -17%; /* Create overlap on wider screens */
-}
-
-/* Media Query for Small Screens */
-@media (max-width: 800px) {
-  .plot-container-wrapper {
-    flex-direction: column; /* Stack elements vertically */
-    align-items: stretch; /* Stretch to full width */
-  }
-
-  .sankey-right, .sankey-left {
-    margin-left: 0; /* Remove overlap */
-    margin-right: 0; /* Remove spacing on the right */
-    order: initial; /* Reset ordering for stacking */
-  }
-}

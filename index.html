@@ -223,13 +223,10 @@
                 </p>
                 <p>
                     To achieve this, we parsed and extracted all links along with other useful information from the HTML file of the articles.
-                    The first step is to identify the position of links to a particular category within the article. 
+                    The first step is to identify the position of links to a particular category within the article (in purple in the following plot). 
                     "Position" refers to the rank of a link, such as whether it is the first, last, or somewhere in between.
-                    By computing the distribution of these category-specific links across all articles, we can determine if there is a pattern: Do links in certain categories tend to appear more frequently at the beginning, middle, or end of the page, or is the distribution random? Understanding this distribution will help us assess whether users' link choices are influenced by the position of the links on the page.
-                </p>
-                <p>
-                    The next step is to analyze where users are clicking on an article page. We examine the positions of the links that were clicked. If users tend to click on links positioned earlier in the article more frequently than those at the end, this would suggest that link position impacts user behavior.
-                    To perform this analysis, we calculate the typical position of the clicked link for each article in each user path. If a link to the target article appears multiple times, we use the average position of these links as a representative value.
+                    By computing the distribution of these category-specific links across all articles, we can assess whether users' link choices are influenced by the position of the links on the page.
+                    The next step is to analyze where users are clicking on an article page. We calculate the typical position of the clicked link for each article in each user path (in blue). 
                 </p>
                     <div class="plot-container-wrapper">
                         <div class="plot-container-right">
@@ -237,8 +234,10 @@
                         </div>
                         <div class="text-container-left">
                             <p>
-                            Our analysis reveals that the median and mean positions of category-specific links are both around 0.5. This suggests that the links are fairly evenly distributed across the page. Furthermore, the difference in link positions between the category "World Regions" and other categories does not show a statistically significant difference based on a t-test. This indicates that there is no bias toward the "World Regions" category. However, we also observe that, while links are distributed randomly, users tend to click on the first links more often than those later in the article (with a median click position of 0.43). This indicates that the position of links influences user behavior, as users are more likely to engage with links that appear earlier on the page.
-                            </p>
+                            Our analysis reveals that the median and mean positions of category-specific links are all around 0.5. This suggests that the links are fairly evenly distributed across the page.
+                            The difference in link positions between the category "World Regions" and other categories does not show a statistically significant difference based on a t-test. This indicates that there is no bias toward the "World Regions" category.
+                            Furthermore, while links are distributed randomly, users tend to click on the first links more often than those later in the article (with a median click position of 0.43). This indicates that the position of links slighlty influences user behavior, as users are more likely to engage with links that appear earlier on the page. 
+                        </p>
                         </div>
                     </div>
                     <div class="plot-container-wrapper">
@@ -248,7 +247,7 @@
                         <div class="text-container-right">
                             <p>
                             Now, let's investigate in which section of the page the links are located and on which section users click the most. 
-                            As before, we identify the section of the clicked links for each article in each path. If the target article's link appears multiple times in different sections, we consider all occurrences and calculate the mean position as the representative value. We then compare this distribution with the section distribution of all links across all articles and paths.
+                            As before, we identify the section of the clicked links for each article in each path. We then compare this distribution with the section distribution of all links across all articles and paths.
                             </p>
                             <p>
                             We see here that users click significantly more on links in the Abstract section (30% of clicks, compared to only 8% of links). They also engage with the Info-boxes (12% of clicks, though they represent only 5% of links) !
@@ -270,8 +269,8 @@
                 </p>
                     <iframe src="plots/plot_differences.html" style="width: 100%; height: 800px; border: none;" title="Plotly Chart2"></iframe>
                 <p>
-                    Wikispeedia Voyage paths are significantly longer in time than non-voyage paths, with more back-clicks (mean backclicks number of 0.54 compared to 0.31) and a slightly higher rating. However, the percentage of completed games is higher for Voyages compared to Non-Voyages. Contrary to what might be expected, the size of the paths (number of steps) remains the same between Voyage and Non-Voyage paths, suggesting a comparable structural complexity despite differing strategies.
-                    While World Regions articles are relatively few in number, they are highly prevalent within the network, often serving as key intermediate steps in paths. Although the Voyage paths seem effective, they tend to be slower and less efficient overall. Is the popularity of these articles solely due to this? Could it be that users intentionally choose these articles? Further investigation is needed to explore this.
+                    Wikispeedia Voyage paths are significantly longer in time than non-voyage paths, with more back-clicks (mean backclicks number of 0.54 compared to 0.31).There is a slightly lower number of ratings of 1 (on a scale from 1 to 5, where 1 indicates ease and 5 indicates difficulty), suggesting that the task is perceived as a bit more difficult. Contrary to what might be expected, the size of the paths (number of steps) remains the same between Voyage and Non-Voyage paths.
+                    Moreover, the completion rate for Voyage paths is higher, indicating a level of comfort or strategic advantage.
                 </p>
             </section>
             

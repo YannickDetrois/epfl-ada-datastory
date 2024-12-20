@@ -70,8 +70,8 @@
             Research Questions
         </h2>
         <ol>
-            <li>Does the Wikispeedia article network structure intrinsically favour Wikispeedia Voyages?</li>
-            <li>Are users more comfortable, fast or efficient with world regions than other topics?</li>
+            <li>Does the Wikispeedia article and network structure intrinsically favour Wikispeedia Voyages?</li>
+            <li>Are users faster or more efficient when taking Wikispeedia Voyages, or do they take semantic detours along the way?</li>
             <li>How does the strategy compare with the algorithmic shortest paths?</li>
         </ol>
     </aside>
@@ -280,7 +280,7 @@
                 </h3>
             
                 <p>
-                    Now that we know that users pass through World Regions more often than they would during random exploration, we can evaluate whether this is an effective strategy or if there might be a better approach. One way to address this question is to compare user paths with optimal paths.
+                    Since we learned that users pass through World Regions more often than they would during random exploration, we can evaluate whether this is an effective strategy or if there might be a better approach. One way to address this question is to compare user paths with optimal paths.
                 <p>
                     Let's define the optimal path as the shortest path that can be taken. This assumption aligns with the game’s goal: to reach the target while minimizing the number of clicks. To analyze the effectiveness of the World Regions strategy, we can examine whether users’ choice of categories aligns with the categories in the optimal paths. 
                     This involves computing the optimal path by constructing a directed graph where edges represent connections between articles. Using this graph, we calculate all the shortest paths for each source-target pair present in users’ games. Interestingly, some pairs have a surprisingly large number of possible optimal paths, up to 599!
@@ -345,12 +345,12 @@
         
         <ol>
             <li>World Regions articles are overrepresented and highly connected compared to other categories,
-                but this bias alone doesn't explain user behavior: they navigate these articles more often than random algorithms predict.
-                The page structure doesn't favor Voyages, and a few key articles significantly drive World Regions' popularity.
-            </li>
+                but this bias alone doesn't explain user behavior: they navigate through these articles more often than random algorithms predict.
+                The page structure doesn't favor Voyages, and a few key articles significantly drive World Regions' popularity.</li>
             <li>Users achieve a higher success rate in reaching their targets when employing Wikispeedia Voyages,
                 even if these paths are often less straightforward (slower and more back-clicks).
-                The semantic similarity along paths is generally lower for Voyages.</li>
+                The semantic similarity along paths is generally lower for Voyages.
+                This indicates that users zoom out to explore broader topics using World Regions.</li>
             <li>Optimal paths leverage World Regions more often than users, suggesting that Voyages are effective strategies that players might underuse. 
             </li>
         </ol>

@@ -8,10 +8,10 @@ Website of the team The5outliers for the Applied Data Analysis course at EPFL (C
 
 Team members:
 - [Camille Challier](https://github.com/CamilleChallier)
-- [David Friou](https://github.com/AfroDeivid)
-- [Marianne Scoglio](https://github.com/mariscoglio)
-- [Marine Ract](https://github.com/marineract)
 - [Yannick Detrois](https://github.com/YannickDetrois)
+- [David Friou](https://github.com/AfroDeivid)
+- [Marine Ract](https://github.com/marineract)
+- [Marianne Scoglio](https://github.com/mariscoglio)
 
 Main repo [link](https://github.com/epfl-ada/ada-2024-project-the5outliers). \
 Dataset [link](https://snap.stanford.edu/data/wikispeedia.html). \

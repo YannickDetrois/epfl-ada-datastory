@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wikispeedia Voyages</title>
+  <script>document.documentElement.classList.add('js');</script>
+  <!-- Start fetching the hero image and title font right away, before anything else -->
+  <link rel="preload" as="image" href="images/title.jpg" fetchpriority="high">
+  <link rel="preload" as="font" href="styles/linuxlibertine/LinLibertine_aS.ttf" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="styles/styles.css">
   <link rel="icon" href="images/favicon.png">
   <script type="text/javascript" id="MathJax-script" async
@@ -11,6 +15,19 @@
   </script>
 </head>
 <body>
+  <!-- Shown instead of the page on small screens (see styles.css) -->
+  <div id="small-screen-notice" role="dialog" aria-labelledby="small-screen-title">
+    <div class="notice-card">
+      <div class="logo">The5Outliers</div>
+      <h2 id="small-screen-title"><span class="gradient-text">You're really missing out here!</span></h2>
+      <p>
+        <em>Wikispeedia Voyages</em> is an interactive data story made for larger screens.
+        Have a look at it on a computer to enjoy all the plots as they are meant to be seen.
+      </p>
+      <button type="button" id="small-screen-dismiss">Continue anyway</button>
+    </div>
+  </div>
+
   <header id="main-header">
     <div class="logo">The5Outliers</div>
     <nav class="navbar">
@@ -24,18 +41,18 @@
     </nav>
   </header>
 
-  <div class="sidebar">
+  <nav class="sidebar" aria-label="Story sections">
     <a href="#voyages" class="active" id="link1">Wikispeedia Voyages</a>
     <a href="#structure" id="link2">Page Structure</a>
     <a href="#markov" id="link3">Markov Chains</a>
     <a href="#behaviour" id="link4">User Behaviour</a>
     <a href="#shortest" id="link5">Shortest Paths</a>
     <a href="#relax" id="link6">But Wait?</a>
-  </div>
+  </nav>
 
   <section id="showcase">
 
-    <img src="./images/title.jpg" alt="Title Image">
+    <img src="./images/title.jpg" alt="Title Image" width="3375" height="2628" fetchpriority="high" id="hero-image">
     <div class="title">
         <h1>WikispeediA <br><span style="color: rgb(244, 244, 244); font-size: 4vw; font-family: 'LinLibReg'; padding-left: 5.5vw;">Voyages</span></h1>
     </div>
@@ -45,6 +62,23 @@
     </div>
 
   </section>
+
+  <script>
+    // Fade the hero in once fully downloaded, then let the (large) intro backgrounds load,
+    // so they don't compete with the hero image for bandwidth.
+    (function () {
+      const hero = document.getElementById("hero-image");
+      const done = () => {
+        hero.classList.add("loaded");
+        document.documentElement.classList.add("hero-loaded");
+      };
+      if (hero.complete) done();
+      else {
+        hero.addEventListener("load", done);
+        hero.addEventListener("error", done);
+      }
+    })();
+  </script>
 
   <!-- INTRO -->
   <div class="intro-container">
@@ -100,7 +134,7 @@
                 </p>
 
                 <!-- TREEMAP -->
-                <iframe src="plots/categories.html" style="width: 100%; height: 600px; border: none; margin-bottom: 20px;" title="Plotly Chart1"></iframe>
+                <iframe loading="lazy" src="plots/categories.html" style="width: 100%; height: 600px; border: none; margin-bottom: 20px;" title="Plotly Chart1"></iframe>
                 
                 <p>
                     To visualise the changes of this new category assignment, this Sankey flow chart shows how the initial categories are regrouped into "World Regions" and "Others" categories, displaying their final distribution in the articles dataset.
@@ -145,7 +179,7 @@
                 </p>
                     <div class="plot-container-wrapper">
                         <div class="plot-container-right">
-                            <iframe src="plots/boxplot_position.html" style="width: 100%; height: 600px; border: none;" title="Plotly Chart2"></iframe>
+                            <iframe loading="lazy" src="plots/boxplot_position.html" style="width: 100%; height: 600px; border: none;" title="Plotly Chart2"></iframe>
                         </div>
                         <div class="text-container-left">
                             <p>
@@ -162,7 +196,7 @@
                     </div>
                     <div class="plot-container-wrapper">
                         <div class="plot-container-left">
-                            <iframe src="plots/donut_sections.html" style="width: 100%; height: 600px; border: none;" title="Plotly Chart2"></iframe>
+                            <iframe loading="lazy" src="plots/donut_sections.html" style="width: 100%; height: 600px; border: none;" title="Plotly Chart2"></iframe>
                         </div>
                         <div class="text-container-right">
                             <p>
@@ -175,7 +209,6 @@
                             </p>
                         </div>
                     </div>
-                    </p>
             </section>
             
             <!-- MARKOV CHAINS -->
@@ -201,15 +234,15 @@
                 <strong>Edges:</strong> Directed edges indicate transitions between categories, whether observed in user paths or inferred from link structure.
                 <ul>
                     <li>The edge width represents the frequency of transitions between categories. 
-                        Self-loops (transitions within the same category) are excluded to focus on inter-category transitions.</em>
+                        Self-loops (transitions within the same category) are excluded to focus on inter-category transitions.
 
                     </li>
                 </ul>
 
         
                 <!-- NETWORKS -->
-                <div style="width: 100%; margin: 50px 50px;">
-                    <img src="plots/networks.png" alt="Network structure" style="width:100%; display:block; margin:auto;">
+                <div style="width: 100%; margin: 50px 0;">
+                    <img src="plots/networks.png" alt="Network structure" width="11435" height="4200" loading="lazy" decoding="async" style="width:100%; height:auto; display:block; margin:auto;">
                 </div>
 
                 <p>
@@ -246,7 +279,7 @@
 
                 <!-- MARKOV -->
                 <div style="width: 80%; margin: 0 auto">
-                    <iframe src="plots/MarkovCategories.html" style="display: block; width: 100%; height: 620px; border: none;" title="Plotly Chart1"></iframe>
+                    <iframe loading="lazy" src="plots/MarkovCategories.html" style="display: block; width: 100%; height: 620px; border: none;" title="Plotly Chart1"></iframe>
                 </div>
 
                 <p>
@@ -272,7 +305,7 @@
                     This section will explore how difficulty metrics differ between Wikispeedia Voyage and non-Voyage paths, as well as between World Regions and non-World Regions categories, to better understand the user experience.
                 </p>
                 <div style="width: 80%; margin: auto; height: 800px; border: none;">
-                    <iframe src="plots/plot_differences.html" style="width: 100%; margin: auto; height: 800px; border: none;" title="Plotly Chart2"></iframe>
+                    <iframe loading="lazy" src="plots/plot_differences.html" style="width: 100%; margin: auto; height: 800px; border: none;" title="Plotly Chart2"></iframe>
                 </div>
                 <p>
                     Wikispeedia Voyage paths are significantly longer in time than other paths, with more back-clicks (mean backclicks number of \( 0.54 \) compared to \( 0.31 \)).
@@ -296,7 +329,7 @@
 
                 <!-- SIMILARITY PLOT -->
                 <div style="margin: 20px 0px">
-                    <img src="plots/similarity.png" alt="similarity" style="width:80%; display:block; margin:auto;">
+                    <img src="plots/similarity.png" alt="similarity" width="9894" height="4940" loading="lazy" decoding="async" style="width:80%; height:auto; display:block; margin:auto;">
                 </div>
 
                 <p>
@@ -330,7 +363,7 @@
                     Note that for optimal paths there is a steep increase for certain categories at the 5th or 6th step, reflecting the fact that fewer paths of this length exist, thus representing a larger percentage over all categories.
                 <p>
                     <!-- OPTIMAL PATHS PLOT -->
-                <iframe src="plots/optimal.html" style="width: 100%; height: 600px; border: none;" title="Plotly ChartO6"></iframe>
+                <iframe loading="lazy" src="plots/optimal.html" style="width: 100%; height: 600px; border: none;" title="Plotly ChartO6"></iframe>
                 <p>   
                     We clearly see that in the early steps, <b>World Regions appears most frequently</b>, with its presence steadily decreasing over subsequent steps, aligning with other categories. 
                     This trend holds for both user and optimal paths, suggesting that using World Regions early in the path is <b>generally a good strategy</b>.
@@ -399,7 +432,7 @@
             
                 <!-- MARKOV -->
                 <div style="width: 80%; margin: 0 auto">
-                    <iframe src="plots/MarkovArticles.html" style="width: 100%; height: 620px; border: none;" title="Plotly Chart1"></iframe>
+                    <iframe loading="lazy" src="plots/MarkovArticles.html" style="width: 100%; height: 620px; border: none;" title="Plotly Chart1"></iframe>
                 </div>
 
                 <p>
@@ -513,26 +546,43 @@
   </footer>
 
   <script>
-    // Highlight the active link as you scroll
-    const sections = document.querySelectorAll("section");
-    const navLinks = document.querySelectorAll(".sidebar a");
+    // Sidebar: only show it while reading the story, and highlight the section being read
+    const sidebar = document.querySelector(".sidebar");
+    const story = document.getElementById("story");
+    const navLinks = [...sidebar.querySelectorAll("a")];
+    const targets = navLinks.map(link => document.querySelector(link.getAttribute("href")));
 
-    window.addEventListener("scroll", () => {
-      let current = "";
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        if (pageYOffset >= sectionTop - sectionHeight / 3) {
-          current = section.getAttribute("id");
-        }
-      });
+    let ticking = false;
+    function updateSidebar() {
+      ticking = false;
+      const middle = window.innerHeight / 2;
+      const storyBox = story.getBoundingClientRect();
+      sidebar.classList.toggle("visible", storyBox.top < middle && storyBox.bottom > middle);
 
-      navLinks.forEach(link => {
-        link.classList.remove("active");
-        if (link.getAttribute("href").includes(current)) {
-          link.classList.add("active");
-        }
+      let current = 0;
+      targets.forEach((target, i) => {
+        if (target.getBoundingClientRect().top <= middle) current = i;
       });
+      navLinks.forEach((link, i) => link.classList.toggle("active", i === current));
+    }
+    function requestUpdate() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateSidebar);
+      }
+    }
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    updateSidebar();
+
+    // Small screen notice: can be dismissed for the rest of the visit
+    const root = document.documentElement;
+    try {
+      if (sessionStorage.getItem("small-screen-dismissed")) root.classList.add("notice-dismissed");
+    } catch (e) {}
+    document.getElementById("small-screen-dismiss").addEventListener("click", () => {
+      root.classList.add("notice-dismissed");
+      try { sessionStorage.setItem("small-screen-dismissed", "1"); } catch (e) {}
     });
   </script>
   

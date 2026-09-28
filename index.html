@@ -15,7 +15,7 @@
   </script>
 </head>
 <body>
-  <!-- Shown instead of the page on small screens (see styles.css) -->
+  <!-- Shown instead of the page on phones (see styles.css) -->
   <div id="small-screen-notice" role="dialog" aria-labelledby="small-screen-title">
     <div class="notice-card">
       <div class="logo">The5Outliers</div>
@@ -24,7 +24,6 @@
         <em>Wikispeedia Voyages</em> is an interactive data story made for larger screens.
         Have a look at it on a computer to enjoy all the plots as they are meant to be seen.
       </p>
-      <button type="button" id="small-screen-dismiss">Continue anyway</button>
     </div>
   </div>
 
@@ -574,16 +573,6 @@
     window.addEventListener("scroll", requestUpdate, { passive: true });
     window.addEventListener("resize", requestUpdate);
     updateSidebar();
-
-    // Small screen notice: can be dismissed for the rest of the visit
-    const root = document.documentElement;
-    try {
-      if (sessionStorage.getItem("small-screen-dismissed")) root.classList.add("notice-dismissed");
-    } catch (e) {}
-    document.getElementById("small-screen-dismiss").addEventListener("click", () => {
-      root.classList.add("notice-dismissed");
-      try { sessionStorage.setItem("small-screen-dismissed", "1"); } catch (e) {}
-    });
   </script>
   
 </body>

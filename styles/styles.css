@@ -319,6 +319,11 @@ section {
   #introduction, #research-questions {
     width: 100%; /* Ensures each aside takes the full width */
   }
+
+  #introduction {
+    margin-right: 0;
+    padding-right: 10vw; /* Keep the text off the right edge */
+  }
 }
 
 /* The Story */
@@ -604,29 +609,14 @@ section {
   overflow-y: auto;
 }
 
-/* Tablets and small windows: shown, but can be dismissed */
-@media (max-width: 999px) {
-  html.js:not(.notice-dismissed) body {
-    overflow: hidden; /* No scrolling behind the notice */
-  }
-
-  html.js:not(.notice-dismissed) #small-screen-notice {
-    display: flex;
-  }
-}
-
-/* Phones: too small to be usable, the notice cannot be dismissed */
+/* Phones: too small to be usable, the notice replaces the page */
 @media (max-width: 699px) {
   body {
-    overflow: hidden;
+    overflow: hidden; /* No scrolling behind the notice */
   }
 
   #small-screen-notice {
     display: flex;
-  }
-
-  #small-screen-dismiss {
-    display: none;
   }
 }
 
@@ -663,9 +653,6 @@ section {
 .notice-card {
   position: relative;
   z-index: 1;
-}
-
-.notice-card {
   max-width: 460px;
   text-align: center;
 }
@@ -687,23 +674,5 @@ section {
   font-size: 16px;
   line-height: 1.5;
   color: #333;
-  margin-bottom: 28px;
 }
 
-#small-screen-dismiss {
-  font-family: 'LinLibCap';
-  font-size: 18px;
-  color: #28649C;
-  background: none;
-  border: 1px solid #28649C;
-  border-radius: 5px;
-  padding: 6px 18px;
-  cursor: pointer;
-  transition: color 0.3s ease, border-color 0.3s ease;
-}
-
-#small-screen-dismiss:hover,
-#small-screen-dismiss:focus-visible {
-  color: #1dc2b1;
-  border-color: #1dc2b1;
-}
